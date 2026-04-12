@@ -1,0 +1,43 @@
+pragma ComponentBehavior: Bound
+import Quickshell.Services.SystemTray
+import Quickshell.Widgets
+import QtQuick
+import qs.config
+
+Item {
+  id: root
+  property alias icons: _iconsFlow
+  property list<SystemTrayItem> appItems: []
+  implicitWidth: Config.panel.isVertical() ? parent.width : (icons.width + icons.spacing * 4)
+  implicitHeight: Config.panel.isVertical() ? (icons.height + icons.spacing * 4):  parent.height
+
+
+  visible: appItems.length > 0
+
+  Flow {
+    id: _iconsFlow
+    flow: Config.panel.getFlow()
+    anchors.centerIn: parent
+    spacing: 4
+
+    Repeater {
+      model: root.appItems
+      delegate: IconImage {
+        id: icon
+        required property SystemTrayItem modelData
+        source: modelData.icon
+
+        implicitSize: 16
+        
+        TapHandler { 
+          acceptedButtons: Qt.LeftButton
+          onDoubleTapped: { 
+            icon.modelData.activate() 
+          }
+        }
+
+        HoverHandler { id: hoverHandler; cursorShape: Qt.PointingHandCursor }
+      }
+    }
+  }
+}

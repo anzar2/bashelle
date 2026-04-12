@@ -1,0 +1,40 @@
+{
+  "theme": "dark",
+  "color": "auto",
+  "fontFamily": "Ubuntu Sans",
+  "fontScale": 1,
+  "frames": {
+    "enabled": true,
+    "width": 4,
+    "radius": 16
+  },
+  "workspaces": {
+    "workspaceSpacing": 4,
+    "iconSpacing": 0,
+    "radius": 16
+  },
+  "panel": {
+    "position": "top",
+    "size": 45
+  },
+  "notifications": {
+    "compact": false,
+    "soundBlacklist": ["discord"],
+    "position": ["top", ""],
+    "displayTime": 4500
+  },
+  "systemTray": {
+    "padding": 5,
+    "spacing": 8,
+    "iconSize": 16
+  },
+  "osd": {
+    "displayTime": 2500
+  },
+  "clock": {
+    "horizontalFormat": "hh:mm",
+    "verticalFormat": "hh\nmm",
+    "fontSize": 10,
+    "bold": true
+  }
+}
