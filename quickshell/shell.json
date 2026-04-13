@@ -1,40 +1,55 @@
 {
-  "theme": "dark",
-  "color": "auto",
-  "fontFamily": "Ubuntu Sans",
-  "fontScale": 1,
-  "frames": {
-    "enabled": true,
-    "width": 4,
-    "radius": 16
-  },
-  "workspaces": {
-    "workspaceSpacing": 4,
-    "iconSpacing": 0,
-    "radius": 16
-  },
-  "panel": {
-    "position": "top",
-    "size": 45
-  },
-  "notifications": {
-    "compact": false,
-    "soundBlacklist": ["discord"],
-    "position": ["top", ""],
-    "displayTime": 4500
-  },
-  "systemTray": {
-    "padding": 5,
-    "spacing": 8,
-    "iconSize": 16
-  },
-  "osd": {
-    "displayTime": 2500
-  },
-  "clock": {
-    "horizontalFormat": "hh:mm",
-    "verticalFormat": "hh\nmm",
-    "fontSize": 10,
-    "bold": true
-  }
+    "clock": {
+        "bold": true,
+        "fontFamily": "Agave Nerd Font",
+        "fontSize": 10,
+        "horizontalFormat": "hh:mm",
+        "verticalFormat": "hh\nmm"
+    },
+    "color": "auto",
+    "fontFamily": "Ubuntu Sans",
+    "fontScale": 1,
+    "frames": {
+        "enabled": true,
+        "radius": 16,
+        "width": 8
+    },
+    "notifications": {
+        "compact": false,
+        "displayTime": 4500,
+        "isBottom": false,
+        "isLeft": false,
+        "isRight": false,
+        "isTop": true,
+        "position": [
+            "top",
+            ""
+        ]
+    },
+    "osd": {
+        "displayTime": 2500,
+        "position": {
+            "bottom": false,
+            "left": false,
+            "right": false,
+            "top": false
+        }
+    },
+    "panel": {
+        "position": "left",
+        "size": 45
+    },
+    "systemTray": {
+        "iconSize": 16,
+        "padding": 5,
+        "spacing": 8
+    },
+    "theme": "dark",
+    "wallpapers_folder": "",
+    "workspaces": {
+        "iconSize": 16,
+        "iconSpacing": 0,
+        "radius": 16,
+        "workspaceSpacing": 4
+    }
 }

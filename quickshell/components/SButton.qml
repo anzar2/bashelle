@@ -24,9 +24,9 @@ Button {
   background: SRectangle {
     id: _background
     colorAnimated: false
+    animated: button.animated
     color: button.color    
     scale: button.pressed && button.animated ? 0.98: 1
-    
   }
 
   contentItem: RowLayout {
@@ -75,5 +75,5 @@ Button {
     NumberAnimation {
       duration: 150
     }
-  }
+  } 
 }

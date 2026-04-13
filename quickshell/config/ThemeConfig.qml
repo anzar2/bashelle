@@ -18,4 +18,8 @@ JsonObject {
     _currentScheme = scheme
     Quickshell.execDetached(["sh", "-c", "$HOME/.config/quickshell/scripts/change_theme.sh " + scheme])
   }
+
+  function toggle() {
+    
+  }
 }

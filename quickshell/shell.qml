@@ -8,9 +8,10 @@ import qs.config
 import qs.services
 import qs.widgets.hub
 import qs.widgets.notifications
+import qs.widgets.wallpaper
+import Quickshell.Hyprland
 
-ShellRoot {  
-
+ShellRoot {
   Variants {
     model: Quickshell.screens
 
@@ -30,10 +31,19 @@ ShellRoot {
   }
 
   Loader {
+    sourceComponent: WallpaperSelector {}
+    active: Widgets.wallpaperSelector.active
+  }
+
+  Loader {
     sourceComponent: Hub {}
     active: Widgets.hub.active
   }
 
+  Loader {
+    sourceComponent: Desktop {}
+    active: Hyprland.focusedWorkspace.toplevels.values.length === 0
+  }
 
   BarManager {}
   NotificationListener {}

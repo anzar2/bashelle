@@ -11,7 +11,7 @@ import "mpris"
 WidgetComponent {
   id: root
   controller: Widgets.hub
-  implicitWidth: 330
+  implicitWidth: 360
   color: Qt.alpha("red", 0.0)
   focusGrab: true
   onFocusLost: Widgets.hub.hide()

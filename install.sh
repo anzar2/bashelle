@@ -54,7 +54,8 @@ install_dotfiles() {
   if [[ "${confirm,,}" == "n" ]]; then
     echo "WARN: Some features won't work properly."
   else 
-    chmod +x "./quickshell/scripts/change_theme.sh"
+    chmod +x "./quickshell/scripts/theme.sh"
+    chmod +x "./quickshell/scripts/wallpaper.sh"
   fi 
 
   if [[ ! -d "$SHELL_PATH" ]]; then

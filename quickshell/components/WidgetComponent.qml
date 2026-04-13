@@ -44,7 +44,7 @@ SPanelWindow {
   Item {
     id: _items
     anchors.fill: parent
-    anchors.margins: Config.frames.width + 4
+    anchors.margins: Config.frames.width + 16
     focus: widget.focusGrab
     Keys.onEscapePressed: widget.escapePressed()
   }

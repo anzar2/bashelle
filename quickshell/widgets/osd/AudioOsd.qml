@@ -2,7 +2,6 @@ import qs.components
 import qs.services
 import QtQuick.Layouts
 import QtQuick
-import qs.theme
 
 WidgetComponent {
   color: "transparent"
@@ -25,7 +24,7 @@ WidgetComponent {
       spacing: 14
       
       SText {
-        text: AudioService.muted ? "󰸈" : "󰕾"
+        text: Audio.sink.muted ? "󰸈" : "󰕾"
       }
 
       SSlider {
@@ -33,12 +32,12 @@ WidgetComponent {
         Layout.alignment: Qt.AlignVCenter
         implicitHeight: 10
         from: 0; to: 1
-        value: AudioService.rawVolume
-        onMoved: AudioService.setVolume(value)
+        value: Audio.sink.rawVolume
+        onMoved: Audio.sink.setVolume(value)
       }
 
       SText {
-        text: AudioService.volume
+        text: Audio.sink.volume
         size: 10
       }
     }

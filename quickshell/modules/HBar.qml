@@ -44,6 +44,11 @@ SPanelWindow {
     Row {
       anchors.centerIn: parent
       height: bg.contentHeight
+
+      SButton {
+        text: "Abrir wallpaper"
+        onClicked: Widgets.wallpaperSelector.toggle()
+      }
     }
 
     RowLayout {

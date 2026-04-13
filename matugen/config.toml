@@ -1,7 +1,4 @@
-[config.wallpaper]
-set = false
-command = "swww"
-arguments = ["img", "--transition-type", "center"]
+[config]
 
 [templates.hyprland]
 input_path = "./templates/hyprland-colors.conf"

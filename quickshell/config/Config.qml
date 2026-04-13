@@ -2,7 +2,7 @@ pragma Singleton
 import Quickshell.Io
 import QtQuick
 import Quickshell
-import Quickshell.Hyprland
+import qs.utils
 
 FileView {
   id: root
@@ -15,6 +15,7 @@ FileView {
   property alias workspaces: jsonAdapter.workspaces
   property alias notifications: jsonAdapter.notifications
   property alias systemTray: jsonAdapter.systemTray
+  property alias wallpapersFolder: jsonAdapter.wallpapers_folder
 
   path: `${Quickshell.env("HOME")}/.config/quickshell/shell.json`
   watchChanges: true
@@ -28,6 +29,7 @@ FileView {
     property string color: "auto" // <hex_color> | auto
     property string fontFamily: "Arial"
     property real fontScale: 1
+    property string wallpapers_folder: ""
 
     onThemeChanged: {
       if (theme === "unset") return;
@@ -38,7 +40,7 @@ FileView {
       }
 
       _currentTheme = theme
-      Quickshell.execDetached(["sh", "-c", "$HOME/.config/quickshell/scripts/change_theme.sh " + theme])
+      Scripts.setTheme(theme)
     }
 
     property FramesConfig frames: FramesConfig {}
