@@ -24,7 +24,7 @@ PathView {
   preferredHighlightBegin: 0.5
   preferredHighlightEnd: 0.5
   highlightRangeMode: PathView.StrictlyEnforceRange
-  pathItemCount: 4
+  pathItemCount: 3
   
   delegate: WallpaperThumbnail {
     required property url fileUrl
