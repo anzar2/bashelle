@@ -19,24 +19,24 @@ WidgetComponent {
 
   mask: Region { item: _content }
 
-  // openAnimation: NumberAnimation {
-  //   id: showAnimation
-  //   property: "x"
-  //   target: _content
-  //   from: Config.panel.isLeft() ? -root.width : root.width
-  //   to: 0
-  //   duration: 350
-  //   easing.type: Easing.OutSine
-  // }
-  //
-  // hideAnimation: NumberAnimation {
-  //   id: hideAnimation
-  //   property: "x"
-  //   target: _content
-  //   to: Config.panel.isLeft() ? -root.width : root.width
-  //   duration: 250
-  //   easing.type: Easing.InSine
-  // }
+  openAnimation: NumberAnimation {
+    id: showAnimation
+    property: "x"
+    target: _content
+    from: Config.panel.isLeft() ? -root.width : root.width
+    to: 0
+    duration: 350
+    easing.type: Easing.OutSine
+  }
+  
+  hideAnimation: NumberAnimation {
+    id: hideAnimation
+    property: "x"
+    target: _content
+    to: Config.panel.isLeft() ? -root.width : root.width
+    duration: 250
+    easing.type: Easing.InSine
+  }
 
   anchors {
     top: true
@@ -55,6 +55,7 @@ WidgetComponent {
     shadowEnabled: true
     clip: true
     padding: 10
+    focus: true
 
     ColumnLayout {
       anchors.fill: parent

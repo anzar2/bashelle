@@ -6,6 +6,7 @@ import QtQuick
 SPanelWindow {
   id: widget
   default property alias items: _items.data
+  property list<var> grabWhitelist: [widget]
   property bool focusGrab: false
   property var controller: null
   property Animation openAnimation: null
@@ -45,18 +46,12 @@ SPanelWindow {
     id: _items
     anchors.fill: parent
     anchors.margins: Config.frames.width + 16
-    focus: widget.focusGrab
     Keys.onEscapePressed: widget.escapePressed()
   }
 
   HyprlandFocusGrab {
-    windows: [widget]
+    windows: widget.grabWhitelist
     active: widget.focusGrab
-
-    onActiveChanged: {
-      if (!active) {
-        widget.focusLost()
-      }
-    }
+    onCleared: widget.focusLost()
   }
 }

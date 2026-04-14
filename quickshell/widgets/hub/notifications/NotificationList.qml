@@ -15,7 +15,7 @@ Loader {
         
       RowLayout {
         SRadioButton {
-          text: "No molestar"
+          text: "Do not disturb"
           font.bold: true 
           checked: Widgets.notification.dnd 
           onClicked: Widgets.notification.toggleDnd()
@@ -44,7 +44,7 @@ Loader {
           }
           
           SText {
-            text: "Sin notificaciones"
+            text: qsTr("This place is empty")
             size: 8
           }
         }

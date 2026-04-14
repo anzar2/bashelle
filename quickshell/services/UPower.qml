@@ -23,10 +23,16 @@ Singleton {
 
   onPercentageChanged: {
     if (percentage === 25 && !charging) {
-      Notifications.send("Servicio de energía", `La bateria es baja ${percentage}%`)
+      Notifications.send(
+        qsTr("Energy Service"), 
+        `${qsTr("Battery low")} ${percentage}%`
+      )
     }
     if (percentage === 15 && !charging) {
-      Notifications.send("Servicio de energía", `La bateria es demasiado baja ${percentage}%`)
+      Notifications.send(
+        qsTr("Energy Service"), 
+        `${qsTr("Battery too low")} ${percentage}%`
+      )
     }
   }
 }

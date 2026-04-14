@@ -9,6 +9,7 @@ PanelWindow {
   id: desktop
   WlrLayershell.layer: WlrLayer.Background
   color: "transparent"
+  focusable: true
 
   anchors {
     top: true
@@ -19,16 +20,16 @@ PanelWindow {
 
   PopupMenu {
     id: menu
-    anchor.window: desktop
     implicitWidth: 200
+    
 
     SButton {
       Layout.fillWidth: true
-      text: "Imagen de fondo"
+      text: "Wallpapers"
+      focus: true
       nerdIcon.text: "󰸉"
       onClicked: {
         Widgets.wallpaperSelector.show()
-        menu.hide()
       }
     }
   }
@@ -37,9 +38,11 @@ PanelWindow {
     acceptedButtons: Qt.RightButton
     
     onTapped: (event) => {
-      menu.visible = !menu.visible
-      menu.anchor.rect.x = event.position.x
-      menu.anchor.rect.y = event.position.y
+      if (!menu.visible) { 
+        menu.toggle()
+        menu.x = event.position.x
+        menu.y = event.position.y
+      }
     }
   }
 }

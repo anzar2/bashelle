@@ -1,4 +1,5 @@
 {
+    "_currentTheme": "dark",
     "clock": {
         "bold": true,
         "fontFamily": "Agave Nerd Font",
@@ -12,7 +13,7 @@
     "frames": {
         "enabled": true,
         "radius": 16,
-        "width": 8
+        "width": 4
     },
     "notifications": {
         "compact": false,
@@ -26,17 +27,8 @@
             ""
         ]
     },
-    "osd": {
-        "displayTime": 2500,
-        "position": {
-            "bottom": false,
-            "left": false,
-            "right": false,
-            "top": false
-        }
-    },
     "panel": {
-        "position": "left",
+        "position": "top",
         "size": 45
     },
     "systemTray": {
@@ -45,7 +37,11 @@
         "spacing": 8
     },
     "theme": "dark",
-    "wallpapers_folder": "",
+    "wallpapers": {
+        "fallbackColor": "#000000",
+        "folder": "~/.config/wallpapers",
+        "resizeMode": "crop"
+    },
     "workspaces": {
         "iconSize": 16,
         "iconSpacing": 0,

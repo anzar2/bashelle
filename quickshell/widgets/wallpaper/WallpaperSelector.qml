@@ -7,6 +7,7 @@ import qs.config
 import qs.theme
 import Quickshell
 import qs.utils
+import QtQuick.Controls
 
 WidgetComponent {
   id: widget
@@ -56,7 +57,16 @@ WidgetComponent {
     implicitWidth: parent.width
     padding: 8
     shadowEnabled: true
-    animated: true
+    focus: true
+
+    Keys.onRightPressed: carousel.incrementCurrentIndex()
+    Keys.onLeftPressed: carousel.decrementCurrentIndex()
+    Keys.onReturnPressed: Scripts.setWallpaper(
+      Config.theme, 
+      carousel.currentWallpaper, 
+      Config.wallpapers.resizeMode,
+      monitorMenu.monitors
+    )
 
     ColumnLayout {
       anchors.fill: parent
@@ -74,27 +84,50 @@ WidgetComponent {
         
         SButton {
           nerdIcon.text: "󰣞"
+          surface.showBorder: true
         }  
         
+        
         Item { Layout.fillWidth: true }
+        
         SButton {
-          text: widget.screen.name
+          id: monitorButton
+          text: monitorMenu.label
           nerdIcon.text: "󰍹"
+          onClicked: monitorMenu.toggle()
+          MonitorsMenu { 
+            id: monitorMenu 
+          }
         }
         
         SButton {
           id: adjustButton
-          text: "Fill"
+          text: switch(Config.wallpapers.resizeMode) {
+            case "fit": return qsTr("Fit")
+            case "crop": return qsTr("Crop")
+            case "no": return qsTr("Center")
+            case "stretch": return qsTr("Stretch")
+            default: return Config.wallpapers.resizeMode
+          }     
+          
+          font.capitalization: Font.Capitalize
           nerdIcon.text: "󱣴"
+          onClicked: resizeMenu.toggle()
+          ResizeMenu { id: resizeMenu  }
         }
 
         Item { Layout.fillWidth: true }
         
         SButton {
-          text: "Aplicar"
+          text: "Apply"
           color: Theme.colors.primary
           textColor: Theme.colors.surface
-          onClicked: Scripts.setWallpaper(Config.theme, carousel.currentWallpaper)
+          onClicked: Scripts.setWallpaper(
+            Config.theme, 
+            carousel.currentWallpaper, 
+            Config.wallpapers.resizeMode,
+            monitorMenu.monitors
+          )
         }
       }
     }    

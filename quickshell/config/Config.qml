@@ -15,7 +15,7 @@ FileView {
   property alias workspaces: jsonAdapter.workspaces
   property alias notifications: jsonAdapter.notifications
   property alias systemTray: jsonAdapter.systemTray
-  property alias wallpapersFolder: jsonAdapter.wallpapers_folder
+  property alias wallpapers: jsonAdapter.wallpapers
 
   path: `${Quickshell.env("HOME")}/.config/quickshell/shell.json`
   watchChanges: true
@@ -29,7 +29,6 @@ FileView {
     property string color: "auto" // <hex_color> | auto
     property string fontFamily: "Arial"
     property real fontScale: 1
-    property string wallpapers_folder: ""
 
     onThemeChanged: {
       if (theme === "unset") return;
@@ -49,15 +48,6 @@ FileView {
     property SystemTrayConfig systemTray: SystemTrayConfig {}
     property WorkspacesConfig workspaces: WorkspacesConfig {}
     property NotificationConfig notifications: NotificationConfig {}
-   
-    property JsonObject osd: JsonObject {
-      property JsonObject position: JsonObject {
-        property bool top: false
-        property bool bottom: false
-        property bool right: false
-        property bool left: false
-      }
-      property int displayTime: 2000
-    }
+    property WallpaperConfig wallpapers: WallpaperConfig {}
   }
 }

@@ -10,10 +10,11 @@ QtObject {
     console.log("Script request:", cmd, theme)
   }
   
-  function setWallpaper(theme: string, file: string) {
+  function setWallpaper(theme: string, file: string, resizeMode: string, monitors: list<ShellScreen>) {
     let cmd = `${Quickshell.env("HOME")}/.config/quickshell/scripts/wallpaper.sh`
     
-    Quickshell.execDetached([cmd, theme, `${file}`])
-    console.log("Script request:", cmd, theme,file)
+    let monitorStr = monitors.map(m => m.name).join(",")
+    Quickshell.execDetached([cmd, theme, resizeMode, monitorStr,`${file}`])
+    console.log("Script request:", cmd, theme, resizeMode, monitorStr, file)
   }
 }

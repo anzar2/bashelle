@@ -5,7 +5,7 @@ import qs.theme
 Item {
   id: root
   default property alias items: _tabs.data
-  property Tab currentTab: null
+  property var currentTab: null
   property bool showIndicator: true
   property bool fillIndicator: false
   property bool fillWidth: false

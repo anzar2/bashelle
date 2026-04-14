@@ -7,7 +7,6 @@ PathView {
   id: carousel
   property string currentWallpaper: currentItem?.fileUrl.toString().replace("file://", "") ?? ""
   clip: true
-  focus: true
 
   MouseArea {
     anchors.fill: parent
@@ -18,9 +17,6 @@ PathView {
     }
   }
 
-  Keys.onRightPressed: incrementCurrentIndex()
-  Keys.onLeftPressed: decrementCurrentIndex()
-  
   preferredHighlightBegin: 0.5
   preferredHighlightEnd: 0.5
   highlightRangeMode: PathView.StrictlyEnforceRange

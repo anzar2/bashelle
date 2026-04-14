@@ -61,6 +61,7 @@ Button {
       text: button.text
       size: button.textSize
       font.bold: button.font.bold
+      font.capitalization: button.font.capitalization
       elide: Text.ElideRight
       color: button.textColor
       leftPadding: button.alignment && !_nerdIcon.visible === Qt.AlignLeft ? 8 : 0
