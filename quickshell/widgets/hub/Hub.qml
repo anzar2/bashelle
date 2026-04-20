@@ -12,8 +12,8 @@ WidgetComponent {
   id: root
   controller: Widgets.hub
   implicitWidth: 360
-  color: Qt.alpha("red", 0.0)
-  focusGrab: true
+  color: "transparent"
+  focusGrab.active: true
   onFocusLost: Widgets.hub.hide()
   onEscapePressed: Widgets.hub.hide()
 
@@ -68,7 +68,6 @@ WidgetComponent {
         Layout.fillWidth: true
         Layout.fillHeight: true
         padding: 4
-        color: "transparent"
         
         NotificationList {
           anchors.fill: parent

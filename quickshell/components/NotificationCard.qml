@@ -69,6 +69,7 @@ SRectangle {
           size: 9
           font.bold: true
           elide: Text.ElideRight
+          Layout.maximumWidth: card.implicitWidth - card.padding * 8
         }
 
         SText {

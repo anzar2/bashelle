@@ -33,8 +33,12 @@ Singleton {
     onTriggered: Widgets.notification.hide()
   }
 
-  function send(summary, body) {
-    Quickshell.execDetached(["notify-send", summary, body, "--app-name", "Sistema"])
+  function send(summary, body, appName="Bashelle") {
+    Quickshell.execDetached(["notify-send", 
+      summary, 
+      body, 
+      "--app-name", appName
+    ])
   }
 }
 

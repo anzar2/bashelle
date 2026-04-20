@@ -24,7 +24,7 @@ SRectangle {
       implicitWidth: 25
       nerdIcon.size: controlCenter.iconSize
       padding: parent.padding
-      animated: true
+      animated: true 
     }
     
     SButton {
@@ -45,6 +45,7 @@ SRectangle {
       padding: parent.padding
       animated: true
     }
+    
     
   }  
 }

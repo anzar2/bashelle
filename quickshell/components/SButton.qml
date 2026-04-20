@@ -11,7 +11,7 @@ Button {
   property alias textItem: _text
   property alias nerdIcon: _nerdIcon
   property alias surface: _background
-  property real textSize: 10
+  property real textSize: 9
   property bool animated: false
   property int alignment: Qt.AlignCenter
   property int layoutDirection: Qt.LeftToRight
@@ -41,14 +41,13 @@ Button {
     IconImage {
       visible: button.icon.name !== ""
       source: button.icon.name
-      implicitSize: 28
+      implicitSize: 14
     }
     
-
     NerdIcon {
       id: _nerdIcon
       visible: text !== ""
-      size: 13
+      size: 11
       color: button.textColor
       leftPadding: button.alignment === Qt.AlignLeft ? 8 : 0
       Layout.alignment: button.alignment

@@ -9,7 +9,7 @@ PopupWindow {
   property bool focus: false
   
   implicitHeight: content.height + 16
-  color: "transparent"
+  color: "red"
   visible: false
 
   HyprlandFocusGrab {

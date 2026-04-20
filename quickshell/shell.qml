@@ -45,6 +45,8 @@ ShellRoot {
     active: Hyprland.focusedWorkspace.toplevels.values.length === 0
   }
 
+
+  OverlayWindow {}
   BarManager {}
   NotificationListener {}
 }

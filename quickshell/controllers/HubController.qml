@@ -1,7 +1,7 @@
 WidgetController {
   id: _hub
   property int lastTabIndex: 0
-  property string lastTabIdentifier: ""  
+  property string lastTabIdentifier: "notifications"  
   property bool expanded: true
  
 

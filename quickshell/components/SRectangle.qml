@@ -15,14 +15,19 @@ Rectangle {
 
   border.width: showBorder ? 1.3 : 0
   border.color: Config.theme === "light" ? Theme.colors.surface_container_high : Theme.colors.surface_container
-  
-  color: Theme.colors.surface
-  radius: 8
 
-  layer.enabled: true
+  color: Theme.colors.surface
+  radius: 6
+
+  layer.enabled: false
+  antialiasing: true
+
   layer.effect: MultiEffect {
     shadowEnabled: root.shadowEnabled
     shadowBlur: 0.3
+    shadowOpacity: 0.5
+    smooth: true
+    antialiasing: false
   }
   
   Item {
@@ -33,7 +38,7 @@ Rectangle {
   
 
   Behavior on color {
-    enabled: root.colorAnimated
+    enabled: false
     ColorAnimation {
       duration: 200
     }
@@ -42,7 +47,7 @@ Rectangle {
   Behavior on implicitHeight {
     enabled: root.animated
     NumberAnimation {
-      duration: 400
+      duration: 250
       easing.type: Easing.OutCubic
     }
   }

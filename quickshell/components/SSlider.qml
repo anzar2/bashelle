@@ -7,6 +7,7 @@ Slider {
   id: slider
   property alias backgroundRect: bg
   property alias fillRect: fill
+
   from: 0
   to: 1
   padding: 0

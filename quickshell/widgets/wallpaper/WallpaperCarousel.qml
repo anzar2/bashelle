@@ -28,6 +28,7 @@ PathView {
     url: fileUrl
     scale: PathView.isCurrentItem ? 1.3 : 0.8
     onClicked: PathView.view.currentIndex = index
+    z: PathView.isCurrentItem ? 99 : 0
   }
 
   path: Path {

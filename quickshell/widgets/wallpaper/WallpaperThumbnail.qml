@@ -16,7 +16,8 @@ Item {
   layer.enabled: true
   layer.effect: MultiEffect {
     shadowEnabled: true
-    shadowBlur: 0.5
+    shadowBlur: 0.3
+    shadowOpacity: 0.5
   }
 
   

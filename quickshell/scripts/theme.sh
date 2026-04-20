@@ -11,6 +11,3 @@ if [[ "$THEME" == "dark" || "$THEME" == "light" ]]; then
   gsettings set org.gnome.desktop.interface color-scheme "prefer-$THEME"
   kill -SIGUSR1 $(pgrep kitty)
 fi
-
-
-

@@ -8,38 +8,26 @@ import qs.services
 RowLayout {
   id: header
 
-  TabRow {
-    id: tabrow
-    
-    Component.onCompleted: setTab(Widgets.hub.lastTabIndex)
-    
-    onCurrentTabChanged: {
-      Widgets.hub.lastTabIndex = currentTab.index
-      Widgets.hub.lastTabIdentifier = currentTab.identifier
-    }
-    
-    fillIndicator: false
-    fillWidth: false
+  SegmentedControl {
+    currentIndex: Widgets.hub.lastTabIndex
+    onCurrentIndexChanged: Widgets.hub.lastTabIndex = currentIndex
 
-    Tab {
-      index: 0
-      identifier: "notifications"
+    SegmentedButton {
       nerdIcon.text: {
-        if (Widgets.notification.dnd) {
-          return "󰒲"
-        }
-        return active ? "󰍨":"󱜽"
-      } 
-      tabRow: tabrow
+        if (Widgets.notification.dnd) return "󱋑"
+        if (Notifications.count > 0) return "󰭻"
+        return "󰻞"
+      }
+      onClicked: Widgets.hub.lastTabIdentifier = "notifications"
     }
 
-    Tab {
-      index: 1
-      identifier: "mpris"
-      nerdIcon.text: active ? "󰎆":"󰫔"
-      tabRow: tabrow
-    }
+    SegmentedButton {
+      nerdIcon.text: "󰫔"
+      onClicked: Widgets.hub.lastTabIdentifier = "mpris"
+    }  
+
   }
+
   Item {
     Layout.fillWidth: true
   }

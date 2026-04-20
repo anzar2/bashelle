@@ -18,11 +18,12 @@ QtObject {
   [/^steam_app_(\d+)$/, "steam_icon_$1"],
   [/^Slay the Spire$/, "steam_icon_646570"],
   [/^jetbrains-idea$/, "jetbrains-idea-pj"],
-  [/^ONLYOFFICE$/, "onlyoffice-desktopeditors"]
+  [/^ONLYOFFICE$/, "onlyoffice-desktopeditors"],
+  [/^VirtualBox Manager$/, "virtualbox"]
 ]
 
 function get(className) {
-  let defaultClassName = Quickshell.iconPath(className, true)
+  let defaultClassName = Quickshell.iconPath(className ?? "", true)
 
   if (Quickshell.iconPath(className, true) !== "") {
     return defaultClassName

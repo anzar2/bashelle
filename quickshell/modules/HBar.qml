@@ -3,22 +3,22 @@ import QtQuick
 import Quickshell.Wayland
 import Quickshell.Hyprland
 import qs.config
-import qs.components
-import qs.services
 import QtQuick.Layouts
 import QtQuick.Controls
-import "barmodules"
+import qs.components
+import qs.modules.systemtray
+import qs.modules.workspaces
 
 SPanelWindow {
   id: bar
   property int moduleSpacing: 6
-  focusable: true
   implicitHeight: Config.panel.size
   exclusiveZone: implicitHeight - Config.frames.width
   WlrLayershell.namespace: "panel"
-  WlrLayershell.layer: Hyprland.focusedMonitor?.activeWorkspace?.hasFullscreen ? WlrLayer.Top : WlrLayer.Overlay
+  WlrLayershell.layer: WlrLayer.Bottom
   WlrLayershell.exclusionMode: WlrLayershell.Normal
   color: "transparent"
+  visible: true
 
   SRectangle {
     id: bg
@@ -44,11 +44,6 @@ SPanelWindow {
     Row {
       anchors.centerIn: parent
       height: bg.contentHeight
-
-      SButton {
-        text: "Abrir wallpaper"
-        onClicked: Widgets.wallpaperSelector.toggle()
-      }
     }
 
     RowLayout {

@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 pragma Singleton
 import Quickshell.Io
 import QtQuick
@@ -6,6 +7,7 @@ import qs.utils
 
 FileView {
   id: root
+  property string _currentTheme: "unset"
   property alias theme: jsonAdapter.theme
   property alias fontFamily: jsonAdapter.fontFamily
   property alias fontScale: jsonAdapter.fontScale
@@ -24,7 +26,6 @@ FileView {
 
   JsonAdapter {
     id: jsonAdapter
-    property string _currentTheme: "unset"
     property string theme: "unset" // dark | light
     property string color: "auto" // <hex_color> | auto
     property string fontFamily: "Arial"
@@ -33,12 +34,12 @@ FileView {
     onThemeChanged: {
       if (theme === "unset") return;
 
-      if (_currentTheme === "unset") {
-        _currentTheme = theme
+      if (root,_currentTheme === "unset") {
+        root._currentTheme = theme
         return
       }
 
-      _currentTheme = theme
+      root._currentTheme = theme
       Scripts.setTheme(theme)
     }
 

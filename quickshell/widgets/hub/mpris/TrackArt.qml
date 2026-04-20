@@ -15,7 +15,6 @@ Item {
     anchors.fill: parent
     visible: false
     layer.enabled: true
-    radius: 12
   }
 
   Image {

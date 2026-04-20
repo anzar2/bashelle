@@ -36,9 +36,10 @@ SPanelWindow {
     layer.effect: MultiEffect {
       shadowEnabled: true
       shadowBlur: 0.3
+      shadowOpacity: 0.5
     }
 
-    SRectangle {
+    Rectangle {
       anchors.fill: parent
       layer.enabled: true
       layer.effect: MultiEffect {
@@ -46,7 +47,7 @@ SPanelWindow {
         maskEnabled: true
         maskInverted: true
       }
-      radius: 0
+      color: Theme.colors.surface
     }
 
 
@@ -59,7 +60,6 @@ SPanelWindow {
       Rectangle {  
         anchors.fill: parent
         anchors.margins: root.borderWidth
-        color: "red"
         radius: Config.frames.radius
       
       }

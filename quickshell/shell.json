@@ -1,5 +1,4 @@
 {
-    "_currentTheme": "dark",
     "clock": {
         "bold": true,
         "fontFamily": "Agave Nerd Font",
@@ -8,11 +7,11 @@
         "verticalFormat": "hh\nmm"
     },
     "color": "auto",
-    "fontFamily": "Ubuntu Sans",
+    "fontFamily": "Adwaita Sans",
     "fontScale": 1,
     "frames": {
         "enabled": true,
-        "radius": 16,
+        "radius": 8,
         "width": 4
     },
     "notifications": {
@@ -28,8 +27,8 @@
         ]
     },
     "panel": {
-        "position": "top",
-        "size": 45
+        "position": "left",
+        "size": 44
     },
     "systemTray": {
         "iconSize": 16,
@@ -38,9 +37,8 @@
     },
     "theme": "dark",
     "wallpapers": {
-        "fallbackColor": "#000000",
-        "folder": "~/.config/wallpapers",
-        "resizeMode": "crop"
+        "fallbackColor": "#e9cbcb",
+        "folder": "~/.config/wallpapers"
     },
     "workspaces": {
         "iconSize": 16,

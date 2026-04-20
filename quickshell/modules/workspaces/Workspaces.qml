@@ -53,9 +53,10 @@ SRectangle {
               implicitWidth: root.indicatorSize
               implicitHeight: root.indicatorSize
               icon.implicitSize: root.indicatorSize * 0.75
-              mimeData: modelData.address
-              icon.source: IconsMap.get(modelData.lastIpcObject.initialClass)
+              mimeData: modelData?.address ?? ""
+              icon.source: IconsMap.get(modelData?.lastIpcObject.initialClass ?? "")
               onMiddleClicked: Hyprland.dispatch(`closewindow address:0x${modelData.address}`)
+
             }
           }
 

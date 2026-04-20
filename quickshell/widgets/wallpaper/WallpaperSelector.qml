@@ -13,15 +13,18 @@ WidgetComponent {
   id: widget
   property bool expanded: false
   controller: Widgets.wallpaperSelector
+  focusGrab.active: true
+  focusGrab.windows: [widget]
   color: "transparent"
   implicitWidth: 650
   implicitHeight: 250
   focusable: true
-  focusGrab: true
 
   onFocusLost: Widgets.wallpaperSelector.hide()
   onEscapePressed: Widgets.wallpaperSelector.hide()
-
+  mask: Region { item: content }
+  anchors { bottom: true }
+  
   openAnimation: NumberAnimation {
     target: content
     property: "y"
@@ -39,16 +42,29 @@ WidgetComponent {
 
   FolderListModel {
     id: fileModel
-    folder: "file://" + "/home/anzar/.config/wallpapers" 
-    nameFilters: ["*.jpg", "*.jpeg"]
+    folder: Config.wallpapers.folderPath()
+    nameFilters: ["*.jpg", "*.jpeg", "*.gif"]
   }
 
-  mask: Region {
-    item: content
+
+  ListModel {
+    id: resizeModel
+    ListElement { text: "Crop";  icon: "󰆞"; data: "crop" }
+    ListElement { text: "Fit"; icon: "󱣴"; data: "fit" }
+    ListElement { text: "Center"; icon: "󰋱"; data: "no" }
   }
 
-  anchors {
-    bottom: true
+  ListModel {
+    id: monitorsModel
+    
+    ListElement { text: "All"; icon: "󰍹"; data: "all" }
+
+    Component.onCompleted: {
+      for (let screen of Quickshell.screens) {
+        append({ text: screen.name, icon: "󰍹", data: screen.name })
+      }
+    }
+    
   }
 
   SRectangle {
@@ -61,16 +77,18 @@ WidgetComponent {
 
     Keys.onRightPressed: carousel.incrementCurrentIndex()
     Keys.onLeftPressed: carousel.decrementCurrentIndex()
-    Keys.onReturnPressed: Scripts.setWallpaper(
-      Config.theme, 
-      carousel.currentWallpaper, 
-      Config.wallpapers.resizeMode,
-      monitorMenu.monitors
-    )
+    Keys.onReturnPressed: applyButton.clicked()
 
     ColumnLayout {
       anchors.fill: parent
-      spacing: 8
+      spacing: 6
+      
+      SButton {
+        nerdIcon.text: NerdIcons.close
+        onClicked: Widgets.wallpaperSelector.hide()
+        Layout.alignment: Qt.AlignRight
+      }
+
 
       WallpaperCarousel {
         id: carousel
@@ -79,57 +97,45 @@ WidgetComponent {
         model: fileModel
       }
 
+
       RowLayout {
         Layout.fillWidth: true
         
         SButton {
           nerdIcon.text: "󰣞"
           surface.showBorder: true
-        }  
-        
-        
-        Item { Layout.fillWidth: true }
-        
-        SButton {
-          id: monitorButton
-          text: monitorMenu.label
-          nerdIcon.text: "󰍹"
-          onClicked: monitorMenu.toggle()
-          MonitorsMenu { 
-            id: monitorMenu 
-          }
-        }
-        
-        SButton {
-          id: adjustButton
-          text: switch(Config.wallpapers.resizeMode) {
-            case "fit": return qsTr("Fit")
-            case "crop": return qsTr("Crop")
-            case "no": return qsTr("Center")
-            case "stretch": return qsTr("Stretch")
-            default: return Config.wallpapers.resizeMode
-          }     
-          
-          font.capitalization: Font.Capitalize
-          nerdIcon.text: "󱣴"
-          onClicked: resizeMenu.toggle()
-          ResizeMenu { id: resizeMenu  }
+          onClicked: Quickshell.execDetached(["nautilus", Config.wallpapers.folderPath()])
         }
 
-        Item { Layout.fillWidth: true }
         
+        SComboBox {
+          id: resizeMenu
+          model: resizeModel
+        }
+
+        SComboBox {
+          id: monitorsMenu
+          model: monitorsModel
+        }
+
+        Item { Layout.fillWidth: true }    
+
+        ThemeSelector { showBorder: true }
+
         SButton {
+          id: applyButton
           text: "Apply"
           color: Theme.colors.primary
           textColor: Theme.colors.surface
           onClicked: Scripts.setWallpaper(
             Config.theme, 
-            carousel.currentWallpaper, 
-            Config.wallpapers.resizeMode,
-            monitorMenu.monitors
+            carousel.currentWallpaper,
+            resizeMenu.currentValue.data,
+            monitorsMenu.currentValue.data
           )
         }
       }
+
     }    
   }
 }

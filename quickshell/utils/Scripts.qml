@@ -1,6 +1,7 @@
 pragma Singleton
 import QtQuick
 import Quickshell
+import qs.config
 
 QtObject {
   function setTheme(theme: string) {
@@ -10,11 +11,11 @@ QtObject {
     console.log("Script request:", cmd, theme)
   }
   
-  function setWallpaper(theme: string, file: string, resizeMode: string, monitors: list<ShellScreen>) {
+  function setWallpaper(theme: string, file: string, resizeMode: string, monitor: string) {
     let cmd = `${Quickshell.env("HOME")}/.config/quickshell/scripts/wallpaper.sh`
-    
-    let monitorStr = monitors.map(m => m.name).join(",")
-    Quickshell.execDetached([cmd, theme, resizeMode, monitorStr,`${file}`])
-    console.log("Script request:", cmd, theme, resizeMode, monitorStr, file)
+    let execList = [cmd, theme, resizeMode, monitor,`${file}`, Config.wallpapers.fallbackColor.replace("#", "")]
+
+    Quickshell.execDetached(execList)
+    console.log("Script request:", execList.join(" "))
   }
 }

@@ -2,11 +2,9 @@ import QtQuick
 import Quickshell.Wayland
 import Quickshell.Hyprland
 import qs.config
-import qs.theme
-import Quickshell.Services.Mpris
 import qs.components
-import qs.services
-import "barmodules"
+import qs.modules.systemtray
+import qs.modules.workspaces
 
 SPanelWindow {
   id: bar
@@ -16,7 +14,7 @@ SPanelWindow {
   color: "transparent"
 
   WlrLayershell.namespace: "panel"
-  WlrLayershell.layer: Hyprland.focusedMonitor.activeWorkspace.hasFullscreen ? WlrLayer.Top : WlrLayer.Overlay
+  WlrLayershell.layer: WlrLayer.Top
   WlrLayershell.exclusionMode: WlrLayershell.Normal
 
   SRectangle {

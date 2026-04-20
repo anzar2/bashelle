@@ -12,4 +12,8 @@ JsonObject {
   function isTop(): bool { return position === "top" }
   function isBottom(): bool { return position === "bottom" }
   function getFlow(): int { return isVertical() ? Flow.TopToBottom : Flow.LeftToRight }
+
+  function setPosition(p) {
+    position = p
+  }
 }

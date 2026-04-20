@@ -6,6 +6,8 @@ import qs.theme
 
 SRectangle {
   id: root
+  property alias tray: _appsTray
+  property string _currentTheme: "unset"
   implicitHeight: flow.height
   implicitWidth: flow.width
   showBorder: true
@@ -16,8 +18,8 @@ SRectangle {
     flow: Config.panel.getFlow()
 
     AppsTray {
+      id: _appsTray
       appItems: SystemTray.items.values
-      
     }
 
     StatusIndicator {

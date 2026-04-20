@@ -2,7 +2,7 @@ import Quickshell.Services.Pipewire
 import QtQuick
 import Quickshell
 
-Scope {
+QtObject {
   id: root
   property PwNode device: Pipewire.defaultAudioSource ?? null
   property real rawVolume: device?.audio?.volume ?? 0
