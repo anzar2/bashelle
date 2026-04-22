@@ -52,11 +52,16 @@ SRectangle {
               required property HyprlandToplevel modelData
               implicitWidth: root.indicatorSize
               implicitHeight: root.indicatorSize
-              icon.implicitSize: root.indicatorSize * 0.75
+              icon.implicitSize: root.indicatorSize * 0.70
               mimeData: modelData?.address ?? ""
               icon.source: IconsMap.get(modelData?.lastIpcObject.initialClass ?? "")
               onMiddleClicked: Hyprland.dispatch(`closewindow address:0x${modelData.address}`)
-
+              TapHandler {
+                acceptedButtons: Qt.LeftButton
+                onSingleTapped: { 
+                  Hyprland.dispatch("alterzorder top,address:0x" + toplevel.modelData.address)
+                }
+              }
             }
           }
 

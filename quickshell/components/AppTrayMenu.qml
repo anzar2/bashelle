@@ -6,10 +6,11 @@ import Quickshell.Wayland
 import Quickshell.Hyprland
 import Quickshell
 
+// Is the same as PopupMenu, but adapted to SystemTray menu
 PopupWindow {
   id: root
   property alias focusGrab: _focusGrab
-  property var model
+  property QsMenuOpener opener
   
   implicitWidth: 200
   color: "transparent"
@@ -27,7 +28,7 @@ PopupWindow {
     target: content
     property: "scale"
     duration: 100
-    from: 0.95
+    from: 0.9
     to: 1
   }
 
@@ -49,21 +50,23 @@ PopupWindow {
     id: content
     anchors.fill: parent
     anchors.margins: 4
-    focus: true  
+    focus: true 
+    scale: 0.3
     Keys.onEscapePressed: root.hide()
     clip: true
 
     SRectangle {
       id: background
       implicitWidth: parent.width
-      implicitHeight: stackview.implicitHeight + (padding * 2)
+      implicitHeight: Math.min(stackview.implicitHeight + (padding * 2), root.implicitHeight - 8)
       padding: 4
+      animated: false
       clip: true
       shadowEnabled: true
 
       StackView {
         id: stackview
-        clip: true
+
         implicitWidth: parent.width
         implicitHeight: currentItem?.implicitHeight ?? 0
       }
@@ -71,26 +74,24 @@ PopupWindow {
   }
 
   function calculateHeight(model) {
-    let menuHeight = 50
-    let maxChildHeight = 50
+    let menuHeight = 46
     
     for (let entry of model) {
       menuHeight += entry.isSeparator ? 2 : 28
-      
-      if (entry.hasChildren) {
-        maxChildHeight = Math.max(maxChildHeight, calculateHeight(entry.children))
-      }
     }
-    
-    return Math.max(menuHeight, maxChildHeight)
+
+    return menuHeight
   }
 
-  function show(parent, type="window", model, x, y) {
-    root.model = model
-
-    stackview.push("SMenu.qml", { model: model, stackview: stackview })
-    
+  function show(parent, type="window", opener, x, y) {
+    let model = opener.children.values
     root.implicitHeight = calculateHeight(model)
+
+    stackview.push("DBusMenu.qml", {
+      opener: opener,
+      stackview: stackview,
+      popup: root
+    })
 
     if (type === "window") { 
       root.anchor.window = parent
@@ -105,8 +106,8 @@ PopupWindow {
     
     focusGrab.active = true
     visible = true
-    background.animated = true
     openAnimation.start()
+    background.animated = true
   }
 
   function hide() {   

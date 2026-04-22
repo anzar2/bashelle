@@ -2,36 +2,33 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import qs.services
+import qs.components
+import qs.utils
 
 PanelWindow {
   id: desktop
   WlrLayershell.layer: WlrLayer.Background
-  color: "transparent"
+  color: Qt.alpha("black", 0.0)
   focusable: true
 
-  ListModel {
-    id: contextMenu
-    
-    ListElement {
-      nerdIcon: "󰑓"
+  property list<MenuEntry> menuList: [
+    MenuEntry {
       text: "Reload"
-      triggered: () => {
+      nerdIcon: NerdIcons.reload
+      onTriggered: {
         Quickshell.execDetached(["hyprctl", "reload"])
         Quickshell.reload(false)
       }
-    }
-
-    ListElement {
+    },
+    MenuEntry {
       text: "Wallpapers"
-      nerdIcon: "󰸉"
-      triggered: () => {
-        Widgets.wallpaperSelector.show()
-      }
-    }
+      nerdIcon: NerdIcons.wallpaper
+      onTriggered: Widgets.wallpaperSelector.show()
+    },
+  ]
 
-    ListElement {
-      text: "Xao"
-    }
+  PopupMenu {
+    id: menu
   }
 
   anchors {
@@ -46,7 +43,7 @@ PanelWindow {
     acceptedButtons: Qt.RightButton
     
     onTapped: (event) => {
-      Overlay.showContextMenu(contextMenu, event.position.x, event.position.y)
+      menu.show(desktop, "window", desktop.menuList, event.position.x, event.position.y)
     }
   }
 }

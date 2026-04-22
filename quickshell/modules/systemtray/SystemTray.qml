@@ -12,7 +12,7 @@ SRectangle {
   implicitWidth: flow.width
   showBorder: true
   color: "transparent"
-  
+
   Flow {
     id: flow
     flow: Config.panel.getFlow()

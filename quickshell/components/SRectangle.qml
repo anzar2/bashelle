@@ -17,17 +17,15 @@ Rectangle {
   border.color: Config.theme === "light" ? Theme.colors.surface_container_high : Theme.colors.surface_container
 
   color: Theme.colors.surface
-  radius: 6
+  radius: 16
 
-  layer.enabled: false
+  layer.enabled: true
   antialiasing: true
 
   layer.effect: MultiEffect {
     shadowEnabled: root.shadowEnabled
     shadowBlur: 0.3
     shadowOpacity: 0.5
-    smooth: true
-    antialiasing: false
   }
   
   Item {

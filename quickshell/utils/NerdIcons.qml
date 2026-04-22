@@ -26,4 +26,9 @@ Singleton {
   property string volume_muted: "󰸈"
 
   property string close: ""
+  property string wallpaper: "󰸉"
+  property string reload: "󰑓"
+  property string power: "󰐥"
+  property string user: ""
+  property string lock: ""
 }

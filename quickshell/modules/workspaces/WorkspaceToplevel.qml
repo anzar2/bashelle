@@ -22,6 +22,7 @@ SRectangle {
       acceptedButtons: Qt.MiddleButton
       onTapped: root.middleClicked() 
     }
+
    
     HoverHandler {
       id: hoverHandler

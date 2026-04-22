@@ -15,6 +15,9 @@ Item {
   implicitHeight: Config.panel.isVertical() ? (icons.height + icons.spacing * 4):  parent.height
   visible: appItems.length > 0
 
+  AppTrayMenu {
+    id: menu
+  }
 
   Flow {
     id: _iconsFlow
@@ -31,6 +34,18 @@ Item {
         source: modelData.icon
         implicitSize: 15
         HoverHandler { id: hoverHandler; cursorShape: Qt.PointingHandCursor }
+
+        QsMenuOpener {
+          id: menuOpener
+          menu: icon.modelData.menu
+        }
+
+        TapHandler {
+          onSingleTapped: {
+            let y = Config.panel.isVertical() ? 0 : root.height + 6
+            menu.show(root, "item", menuOpener, root.width + 6, y)
+          }
+        }
       }
     }
   }

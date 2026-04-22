@@ -46,7 +46,6 @@ ShellRoot {
   }
 
 
-  OverlayWindow {}
   BarManager {}
   NotificationListener {}
 }
