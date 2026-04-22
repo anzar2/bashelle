@@ -17,10 +17,9 @@ Rectangle {
   border.color: Config.theme === "light" ? Theme.colors.surface_container_high : Theme.colors.surface_container
 
   color: Theme.colors.surface
-  radius: 16
+  radius: 8
 
-  layer.enabled: true
-  antialiasing: true
+  layer.enabled: false
 
   layer.effect: MultiEffect {
     shadowEnabled: root.shadowEnabled
@@ -45,7 +44,7 @@ Rectangle {
   Behavior on implicitHeight {
     enabled: root.animated
     NumberAnimation {
-      duration: 250
+      duration: 500
       easing.type: Easing.OutCubic
     }
   }
@@ -53,8 +52,8 @@ Rectangle {
   Behavior on implicitWidth {
     enabled: root.animated
     NumberAnimation {
-      duration: 350
-      easing.type: Easing.OutBack
+      duration: 500
+      easing.type: Easing.OutCubic
     }
   }
 
@@ -62,8 +61,8 @@ Rectangle {
   Behavior on scale {
     enabled: root.animated
     NumberAnimation {
-      duration: 250
-      easing.type: Easing.OutBack
+      duration: 500
+      easing.type: Easing.OutCubic
     }
   }
 }

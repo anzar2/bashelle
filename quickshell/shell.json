@@ -17,17 +17,13 @@
     "notifications": {
         "compact": false,
         "displayTime": 4500,
-        "isBottom": false,
-        "isLeft": false,
-        "isRight": false,
-        "isTop": true,
         "position": [
             "top",
-            ""
+            "right"
         ]
     },
     "panel": {
-        "position": "left",
+        "position": "top",
         "size": 44
     },
     "systemTray": {

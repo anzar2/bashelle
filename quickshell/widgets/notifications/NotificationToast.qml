@@ -38,10 +38,10 @@ WidgetComponent {
   }
 
   anchors {
-    top: Config.notifications.isTop
-    bottom: Config.notifications.isBottom
-    right: Config.notifications.isRight
-    left: Config.notifications.isLeft
+    top: Config.notifications.isTop()
+    bottom: Config.notifications.isBottom()
+    right: Config.notifications.isRight()
+    left: Config.notifications.isLeft()
   }
   
   NotificationCard { 

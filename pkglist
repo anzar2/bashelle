@@ -12,7 +12,9 @@ gammastep
 ttf-jetbrains-mono-nerd
 xdg-desktop-portal-hyprland
 hyprsunset
-nwg-look
 jq
 papirus-icon-theme
 ttf-nerd-fonts-symbols
+xdg-terminal-exec
+xdg-utils
+glib2

@@ -104,10 +104,9 @@ WidgetComponent {
         SButton {
           nerdIcon.text: "󰣞"
           surface.showBorder: true
-          onClicked: Quickshell.execDetached(["nautilus", Config.wallpapers.folderPath()])
+          onClicked: Xdg.openFileManager(Config.wallpapers.folder)
         }
 
-        
         SComboBox {
           id: resizeMenu
           model: resizeModel

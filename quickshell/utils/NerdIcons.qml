@@ -8,7 +8,7 @@ Singleton {
   property string chevron_right: ""
 
   property string battery_full: "󰁹"
-  property string battery_90: "�"
+  property string battery_90: "󰂂"
   property string battery_80: "󰂁"
   property string battery_70: "󰂀"
   property string battery_60: "󰁿"
@@ -31,4 +31,7 @@ Singleton {
   property string power: "󰐥"
   property string user: ""
   property string lock: ""
+
+  property string terminal: ""
+  property string folder: ""
 }

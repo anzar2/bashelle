@@ -21,10 +21,31 @@ PanelWindow {
       }
     },
     MenuEntry {
+      text: "Open terminal"
+      nerdIcon: NerdIcons.terminal
+      onTriggered: Xdg.openTerminal()
+    },
+    MenuEntry {
+      text: "Open Files"
+      nerdIcon: NerdIcons.folder
+      onTriggered: Xdg.openFileManager()
+    },
+    MenuEntry { isSeparator: true },
+    MenuEntry {
       text: "Wallpapers"
       nerdIcon: NerdIcons.wallpaper
       onTriggered: Widgets.wallpaperSelector.show()
     },
+    MenuEntry {
+      text: "Session"
+      nerdIcon: NerdIcons.power
+      hasChildren: true
+      children: [
+        MenuEntry {
+          text: "Power off"
+        }
+      ]
+    }
   ]
 
   PopupMenu {

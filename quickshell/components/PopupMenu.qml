@@ -65,7 +65,7 @@ PopupWindow {
         id: stackview
         clip: true
         implicitWidth: parent.width
-        implicitHeight: currentItem?.implicitHeight ?? 0
+        implicitHeight: currentItem?.implicitHeight ?? 120
       }
     }
   }
