@@ -11,11 +11,25 @@ Singleton {
   property alias server: _server
   property alias timer: _timer
 
+  Component.onCompleted: Logger.p("Notifications", "Service started")
+
   NotificationServer { 
     id: _server 
     bodySupported: true
     imageSupported: true
     actionsSupported: true
+    
+    onNotification: (notification) =>  {
+      notification.tracked = true
+      Notifications.last = notification
+
+      if (!Widgets.notification.dnd) {
+        Widgets.notification.show()
+      }
+      Notifications.timer.restart()
+
+      Logger.p("Notifications", `${notification.appName}: [${notification.summary},${notification.body}]`)
+    }
   }
   
   function clear() {

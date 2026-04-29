@@ -2,13 +2,15 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import qs.config
+import qs.services
 
-QtObject {
+Singleton {
   function setTheme(theme: string) {
     let cmd = `${Quickshell.env("HOME")}/.config/quickshell/scripts/theme.sh`
     
     Quickshell.execDetached([cmd, theme])
-    console.log("Script request:", cmd, theme)
+
+    Logger.p("Script Request", `${cmd} ${theme}`)
   }
   
   function setWallpaper(theme: string, file: string, resizeMode: string, monitor: string) {
@@ -16,6 +18,6 @@ QtObject {
     let execList = [cmd, theme, resizeMode, monitor,`${file}`, Config.wallpapers.fallbackColor.replace("#", "")]
 
     Quickshell.execDetached(execList)
-    console.log("Script request:", execList.join(" "))
+    Logger.p("Script Request", `Request ${cmd} ${execList.join(" ")}`)
   }
 }

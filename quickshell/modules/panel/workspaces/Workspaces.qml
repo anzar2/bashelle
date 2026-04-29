@@ -14,7 +14,7 @@ SRectangle {
   property real indicatorSize: (Config.panel.isVertical() ? implicitWidth : implicitHeight) - wsFlow.padding
   
   color: Qt.alpha(Theme.colors.primary, 0.05)
-  radius: Config.workspaces.radius
+
   showBorder: true
   implicitWidth: wsFlow.width
   implicitHeight: wsFlow.height

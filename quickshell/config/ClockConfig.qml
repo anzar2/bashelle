@@ -5,6 +5,5 @@ JsonObject {
   property string verticalFormat: "hh mm"
   property real fontSize: 16 
   property bool bold: true
-  property string fontFamily: "Agave Nerd Font"
 }
 

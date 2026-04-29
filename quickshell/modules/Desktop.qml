@@ -28,7 +28,7 @@ PanelWindow {
     MenuEntry {
       text: "Open Files"
       nerdIcon: NerdIcons.folder
-      onTriggered: Xdg.openFileManager()
+      onTriggered: Xdg.open()
     },
     MenuEntry { isSeparator: true },
     MenuEntry {

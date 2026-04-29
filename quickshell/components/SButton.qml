@@ -5,42 +5,50 @@ import QtQuick.Layouts
 import qs.components
 import qs.theme
 
+// I'll make this cleaner when the time comes
 Button {
   id: button
+  property var style: flat ? flatStyle : fillStyle
+  property var flatStyle: ({
+    background: "transparent",
+    backgroundHovered: Theme.colors.surface_container,
+  })
+
+  readonly property var fillStyle: ({
+    background: Theme.colors.primary,
+    backgroundHovered: Theme.colors.primary,
+  })
 
   property alias textItem: _text
   property alias nerdIcon: _nerdIcon
   property alias surface: _background
   property real textSize: 9
-  property bool animated: false
   property int alignment: Qt.AlignCenter
   property int layoutDirection: Qt.LeftToRight
-  property color textColor: Theme.colors.on_surface_variant
-  property color color: hovered ? Theme.colors.surface_container : "transparent"
-
+  property color color: hovered ? style.backgroundHovered : style.background   
+  property color textColor: flat ? Theme.colors.on_surface_variant : Theme.colors.on_primary
+  
+  flat: true
   padding: 6
   HoverHandler { cursorShape: Qt.PointingHandCursor }
+
 
   background: SRectangle {
     id: _background
     colorAnimated: false
-    animated: button.animated
     color: button.color    
-    scale: button.pressed && button.animated ? 0.98: 1
+    scale: button.pressed  ? 0.98: 1
   }
 
   contentItem: RowLayout {
     id: content
-    anchors.left: button.alignment === Qt.AlignLeft ?  _background.left : undefined
-    anchors.centerIn: button.alignment === Qt.AlignCenter ? _background : undefined
-    anchors.verticalCenter: parent.verticalCenter
     layoutDirection: button.layoutDirection
     spacing: 4
     visible: (_nerdIcon.text !== "" || button.text !== "")
 
     IconImage {
       visible: button.icon.name !== ""
-      source: button.icon.name
+      source: Qt.resolvedUrl(button.icon.name)
       implicitSize: 14
     }
     
@@ -69,11 +77,4 @@ Button {
       z: 99
     }
   }
-
-  Behavior on scale {
-    enabled: button.animated
-    NumberAnimation {
-      duration: 150
-    }
-  } 
 }

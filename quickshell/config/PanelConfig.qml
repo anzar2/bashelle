@@ -1,9 +1,8 @@
 import Quickshell.Io
-import qs.services
 import QtQuick
 
 JsonObject {
-  property string position: "" // top | bottom | right | left
+  property string position // top | bottom | right | left
   property int size: 30
   
   function isVertical(): bool { return position === "left" || position === "right" }
@@ -14,6 +13,8 @@ JsonObject {
   function getFlow(): int { return isVertical() ? Flow.TopToBottom : Flow.LeftToRight }
 
   function setPosition(p) {
-    position = p
+    if (["top", "left", "right", "bottom"].includes(p)) {
+      position = p
+    }
   }
 }

@@ -11,29 +11,40 @@ Slider {
   from: 0
   to: 1
   padding: 0
-  implicitWidth: 150
-  implicitHeight: 8
+  implicitWidth: slider.vertical ? 8 : 150
+  implicitHeight: slider.vertical ? 150 : 8
 
   handle: Item {}
 
   background: Item {
-    width: slider.availableWidth
-    height: slider.availableHeight
+    width: slider.width
+    height: slider.height
 
    SRectangle {
       id: bg
-      anchors.fill: parent
+      implicitWidth: parent.width
+      implicitHeight: parent.height
       color: Theme.colors.surface_container_high
+      showBorder: false
     }
 
     SRectangle {
       id: fill
-      width: slider.visualPosition * parent.width
-      height: parent.height
+      anchors.bottom: parent.bottom
+      width: slider.vertical ? parent.width : slider.visualPosition * parent.width
+      height: slider.vertical ? (1 - slider.visualPosition) * parent.height : parent.height
       color: sliderHover.hovered ? Theme.colors.secondary : Theme.colors.primary
 
       Behavior on width {
-        NumberAnimation { duration: 150; easing.type: Easing.OutQuad }
+        NumberAnimation { 
+          duration: 100
+        }
+      }
+
+      Behavior on height {
+        NumberAnimation {
+          duration: 100
+        }
       }
     }
     

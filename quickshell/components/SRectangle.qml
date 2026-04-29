@@ -19,11 +19,11 @@ Rectangle {
   color: Theme.colors.surface
   radius: 8
 
-  layer.enabled: false
+  layer.enabled: true
 
   layer.effect: MultiEffect {
     shadowEnabled: root.shadowEnabled
-    shadowBlur: 0.3
+    shadowBlur: 0.5
     shadowOpacity: 0.5
   }
   
@@ -35,7 +35,7 @@ Rectangle {
   
 
   Behavior on color {
-    enabled: false
+    enabled: root.animated
     ColorAnimation {
       duration: 200
     }

@@ -51,15 +51,14 @@ PopupWindow {
     anchors.margins: 4
     focus: true  
     Keys.onEscapePressed: root.hide()
-    clip: true
 
     SRectangle {
       id: background
       implicitWidth: parent.width
       implicitHeight: stackview.implicitHeight + (padding * 2)
-      padding: 4
-      clip: true
+      padding: 8
       shadowEnabled: true
+      clip: true
 
       StackView {
         id: stackview

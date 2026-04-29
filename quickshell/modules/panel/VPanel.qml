@@ -3,19 +3,19 @@ import Quickshell.Wayland
 import Quickshell.Hyprland
 import qs.config
 import qs.components
-import qs.modules.systemtray
-import qs.modules.workspaces
+import qs.modules.panel.systemtray
+import qs.modules.panel.workspaces
 
 SPanelWindow {
   id: bar
   property int moduleSpacing: 4
   implicitWidth: Config.panel.size
-  exclusiveZone: implicitWidth - Config.frames.width
+  exclusiveZone: implicitWidth
   color: "transparent"
 
   WlrLayershell.namespace: "panel"
   WlrLayershell.layer: WlrLayer.Top
-  WlrLayershell.exclusionMode: WlrLayershell.Normal
+  visible: !Hyprland.focusedWorkspace.hasFullscreen
 
   SRectangle {
     id: bg

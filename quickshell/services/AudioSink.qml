@@ -1,7 +1,7 @@
 import Quickshell.Services.Pipewire
 import QtQuick
-import Quickshell
 import qs.utils
+import qs.services
 
 QtObject {
   id: root
@@ -9,6 +9,16 @@ QtObject {
   property real rawVolume: device?.audio.volume ?? null
   property bool muted: device?.audio.muted ?? null
   property real volume: Math.round(rawVolume * 100)
+
+  onRawVolumeChanged: {
+    Widgets.audioOsd.show()
+    OsdSettings.audioTimer.restart()
+  }
+
+  onMutedChanged: {
+    Widgets.audioOsd.show()
+    OsdSettings.audioTimer.restart()
+  }
 
   property string icon: {
     if (muted) return NerdIcons.volume_muted

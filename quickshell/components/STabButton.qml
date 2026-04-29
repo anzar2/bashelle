@@ -2,7 +2,6 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick
 import qs.config
-import qs.theme
 
 TabButton {
   id: button
@@ -27,6 +26,7 @@ TabButton {
       text: button.text
       font: button.font
       visible: text !== ""
+      Layout.alignment: Qt.AlignCenter
     }
   }
   HoverHandler { cursorShape: Qt.PointingHandCursor }

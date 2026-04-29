@@ -6,7 +6,7 @@ import QtQuick
  
 FileView {
   property alias colors: jsonAdapter
-  path: `${Quickshell.env("HOME")}/.config/quickshell/theme/colors.json`
+  path: `${Quickshell.env("HOME")}/.config/quickshell/colors.json`
   watchChanges: true
   onFileChanged: reload()
   onAdapterUpdated: writeAdapter()

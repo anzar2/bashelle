@@ -1,7 +1,6 @@
 {
     "clock": {
         "bold": true,
-        "fontFamily": "Agave Nerd Font",
         "fontSize": 10,
         "horizontalFormat": "hh:mm",
         "verticalFormat": "hh\nmm"
@@ -23,7 +22,7 @@
         ]
     },
     "panel": {
-        "position": "top",
+        "position": "left",
         "size": 44
     },
     "systemTray": {

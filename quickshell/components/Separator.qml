@@ -6,5 +6,5 @@ SRectangle {
   Layout.fillWidth: true
   implicitWidth: parent.width
   implicitHeight: 1
-  color: Theme.colors.surface_container
+  color: Theme.colors.surface_container_high
 }

@@ -104,7 +104,7 @@ WidgetComponent {
         SButton {
           nerdIcon.text: "󰣞"
           surface.showBorder: true
-          onClicked: Xdg.openFileManager(Config.wallpapers.folder)
+          onClicked: Xdg.open(Config.wallpapers.folder)
         }
 
         SComboBox {
@@ -124,8 +124,7 @@ WidgetComponent {
         SButton {
           id: applyButton
           text: "Apply"
-          color: Theme.colors.primary
-          textColor: Theme.colors.surface
+          flat: false
           onClicked: Scripts.setWallpaper(
             Config.theme, 
             carousel.currentWallpaper,

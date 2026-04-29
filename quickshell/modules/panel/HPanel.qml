@@ -4,10 +4,9 @@ import Quickshell.Wayland
 import Quickshell.Hyprland
 import qs.config
 import QtQuick.Layouts
-import QtQuick.Controls
 import qs.components
-import qs.modules.systemtray
-import qs.modules.workspaces
+import qs.modules.panel.systemtray
+import qs.modules.panel.workspaces
 
 SPanelWindow {
   id: bar
@@ -15,10 +14,9 @@ SPanelWindow {
   implicitHeight: Config.panel.size
   exclusiveZone: implicitHeight - Config.frames.width
   WlrLayershell.namespace: "panel"
-  WlrLayershell.layer: WlrLayer.Bottom
-  WlrLayershell.exclusionMode: WlrLayershell.Normal
+  WlrLayershell.layer: WlrLayer.Top
   color: "transparent"
-  visible: true
+  visible: !Hyprland.focusedWorkspace.hasFullscreen
 
   SRectangle {
     id: bg
@@ -53,14 +51,14 @@ SPanelWindow {
       spacing: 4
 
 
-      Clock {
-        implicitHeight: parent.height
-      }
 
       SystemTray {
         implicitHeight: parent.height
       }
 
+      Clock {
+        implicitHeight: parent.height
+      }
 
       HubLauncher {
         implicitHeight: parent.height

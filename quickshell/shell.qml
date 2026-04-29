@@ -9,9 +9,15 @@ import qs.services
 import qs.widgets.hub
 import qs.widgets.notifications
 import qs.widgets.wallpaper
+import qs.modules.panel
+import qs.widgets.osd
 import Quickshell.Hyprland
+import qs.widgets
 
 ShellRoot {
+  // What services we need to be instanced on start
+  property var services: [Config, Notifications, WlSunset]
+
   Variants {
     model: Quickshell.screens
 
@@ -45,7 +51,17 @@ ShellRoot {
     active: Hyprland.focusedWorkspace.toplevels.values.length === 0
   }
 
+  Loader {
+    sourceComponent: AudioOsd {}
+    active: Widgets.audioOsd.active
+  }
+
+  Loader {
+    sourceComponent: ControlCenter {}
+    active: Widgets.controlCenter.active
+  }
+
+  
 
   BarManager {}
-  NotificationListener {}
 }

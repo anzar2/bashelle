@@ -28,7 +28,7 @@ SRectangle {
       Layout.maximumWidth: card.width - card.padding * 2
       
       SText {
-        text: `${card.notification.appName} - ${card.notification.time}`
+        text: `${card.notification.appName}`
         size: 8
         font.capitalization: Font.Capitalize
         font.bold: true

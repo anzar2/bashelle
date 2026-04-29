@@ -1,8 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Layouts
-import Quickshell.Wayland
 import Quickshell.Hyprland
 import Quickshell
 
@@ -12,7 +10,7 @@ PopupWindow {
   property alias focusGrab: _focusGrab
   property QsMenuOpener opener
   
-  implicitWidth: 200
+  implicitWidth: 250
   color: "transparent"
   
   mask: Region { item: stackview }

@@ -3,6 +3,7 @@ import qs.components
 import Quickshell.Services.SystemTray
 import qs.config
 import qs.theme
+import qs.services
 
 SRectangle {
   id: root
@@ -25,6 +26,7 @@ SRectangle {
     StatusIndicator {
       implicitHeight: Config.panel.isVertical() ? iconsFlow.height : root.height
       implicitWidth: Config.panel.isVertical() ? root.width : iconsFlow.width
+      onClicked: Widgets.controlCenter.toggle()
     }
   }
 }

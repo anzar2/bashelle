@@ -4,10 +4,11 @@ import Quickshell.Io
 import QtQuick
 import Quickshell
 import qs.utils
+import qs.services
 
 FileView {
   id: root
-  property string _currentTheme: "unset"
+  property bool ready: false
   property alias theme: jsonAdapter.theme
   property alias fontFamily: jsonAdapter.fontFamily
   property alias fontScale: jsonAdapter.fontScale
@@ -19,28 +20,29 @@ FileView {
   property alias systemTray: jsonAdapter.systemTray
   property alias wallpapers: jsonAdapter.wallpapers
 
-  path: `${Quickshell.env("HOME")}/.config/quickshell/shell.json`
+  path: `${Xdg.paths.home}/.config/quickshell/shell.json`
   watchChanges: true
-  onFileChanged: reload()
+  onFileChanged: {
+    reload()
+    Logger.p("Config", `File ${path} has been modified`)
+  }
+  onLoaded: ready = true
+
   onAdapterUpdated: writeAdapter()
+
+  Component.onCompleted: Logger.p("Config", "Service started")
 
   JsonAdapter {
     id: jsonAdapter
-    property string theme: "unset" // dark | light
+    property string theme // dark | light
     property string color: "auto" // <hex_color> | auto
     property string fontFamily: "Arial"
     property real fontScale: 1
 
     onThemeChanged: {
-      if (theme === "unset") return;
-
-      if (root,_currentTheme === "unset") {
-        root._currentTheme = theme
-        return
+      if (root.ready) {
+        Scripts.setTheme(theme)
       }
-
-      root._currentTheme = theme
-      Scripts.setTheme(theme)
     }
 
     property FramesConfig frames: FramesConfig {}
