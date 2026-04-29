@@ -43,7 +43,7 @@ WidgetComponent {
   FolderListModel {
     id: fileModel
     folder: Config.wallpapers.folderPath()
-    nameFilters: ["*.jpg", "*.jpeg", "*.gif"]
+    nameFilters: ["*.jpg", "*.jpeg", "*.gif", "*.png"]
   }
 
 

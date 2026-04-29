@@ -50,6 +50,11 @@ Singleton {
       Logger.p("WlSunset", "Service started")
     }
 
+    onLoadFailed: {
+      Logger.p("WlSunset", `${path} file couldn't be loaded. Creating...`)
+      writeAdapter()
+    }
+
     property alias enabled: _adapter.enabled
     property alias temp: _adapter.temp
     property alias lat: _adapter.lat
@@ -65,7 +70,7 @@ Singleton {
       property real long: 0
       property string sunrise: "6:30"
       property string sunset: "18:00"
-      property bool enabled: false
+      property bool enabled: true
       property int mode: 0 // manual | scheduled | always
     }
   }

@@ -49,6 +49,7 @@ ControlPage {
 
           Layout.fillWidth: true
         }
+
         SSlider {
           id: slider
           snapMode: Slider.SnapAlways
