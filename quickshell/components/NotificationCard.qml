@@ -2,7 +2,7 @@ import qs.components
 import qs.services
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Hyprland
+import qs.utils
 import Quickshell.Widgets
 import Quickshell.Services.Notifications
 import qs.theme
@@ -36,7 +36,8 @@ SRectangle {
       }
       
       SButton {
-        nerdIcon.text: ""
+        nerdIcon: NerdIcon { text: NerdIcons.close }
+        
         onClicked: { 
           Widgets.notification.hide()
           card.notification.dismiss() 
@@ -87,7 +88,7 @@ SRectangle {
   TapHandler { 
     id: tap 
     onTapped: {
-      Hyprland.dispatch("focuswindow class:" + card.notification.desktopEntry)
+      Hypr.focus({ window: "class:" + card.notification.desktopEntry })
       Widgets.notification.hide()
       card.clicked()
       if (card.notification.actions.length > 0) {

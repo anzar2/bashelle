@@ -1,44 +1,75 @@
 {
-    "clock": {
-        "bold": true,
-        "fontSize": 10,
-        "horizontalFormat": "hh:mm",
-        "verticalFormat": "hh\nmm"
-    },
-    "color": "auto",
-    "fontFamily": "Adwaita Sans",
-    "fontScale": 1,
-    "frames": {
-        "enabled": true,
+    "appearance": {
+        "accentColor": "#ed8796",
+        "fontFamily": "Adwaita Sans",
+        "fontScale": 1,
         "radius": 8,
+        "shadows": true,
+        "theme": "dark"
+    },
+    "bluetooth": {
+        "showName": false
+    },
+    "clock": {
+        "bold": false,
+        "fontSize": 9,
+        "horizontalFormat": "hh:mm",
+        "verticalFormat": "hh mm"
+    },
+    "frames": {
+        "enabled": false,
+        "radius": 16,
         "width": 4
+    },
+    "network": {
+        "showName": false
     },
     "notifications": {
         "compact": false,
         "displayTime": 4500,
         "position": [
-            "top",
-            "right"
+            "",
+            ""
         ]
     },
     "panel": {
         "position": "left",
-        "size": 44
+        "size": 45
+    },
+    "pipewire": {
+        "audio": {
+            "showPercentage": false
+        },
+        "mic": {
+            "showPercentage": false
+        }
     },
     "systemTray": {
-        "iconSize": 16,
-        "padding": 5,
-        "spacing": 8
+        "appBlackList": [],
+        "items": {
+            "onDemand": [],
+            "pinned": [
+                "bluetooth",
+                "mic",
+                "audio",
+                "upower",
+                "network"
+            ]
+        }
     },
-    "theme": "dark",
+    "upower": {
+        "low_threshold": 25,
+        "showPercentage": true,
+        "verylow_threshold": 15
+    },
     "wallpapers": {
-        "fallbackColor": "#e9cbcb",
+        "fallbackColor": "000000",
         "folder": "~/.config/wallpapers"
     },
     "workspaces": {
         "iconSize": 16,
-        "iconSpacing": 0,
-        "radius": 16,
-        "workspaceSpacing": 4
+        "iconSpacing": 6,
+        "radius": 99,
+        "workspaceSpacing": 8
     }
 }

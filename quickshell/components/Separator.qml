@@ -3,8 +3,9 @@ import QtQuick
 import qs.theme
 
 SRectangle {
-  Layout.fillWidth: true
-  implicitWidth: parent.width
-  implicitHeight: 1
+  id: bg
+  property bool thin: true
+  implicitWidth: thin ? 1:2
+  implicitHeight: thin ? 1:2
   color: Theme.colors.surface_container_high
 }

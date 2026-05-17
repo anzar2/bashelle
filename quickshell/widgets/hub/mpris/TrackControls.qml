@@ -11,21 +11,24 @@ RowLayout {
   
   SButton { 
     id: _prev
-    nerdIcon.text: "󰒫" 
+    nerdIcon: NerdIcon { text: "󰒫" }
     onClicked: root.player.previous()
     color: "transparent"
   }
   
   SButton {
     id: _pause
-    nerdIcon.text: root.player.playbackState == MprisPlaybackState.Playing ? "" : ""
+    Component { id: pauseIcon; NerdIcon { text: "" } }
+    Component { id: playIcon; NerdIcon { text: "" } }
+    nerdIcon: root.player.playbackState == MprisPlaybackState.Playing ? pauseIcon : playIcon
     onClicked: root.player.togglePlaying()
     color: "transparent"
   }
   
   SButton { 
     id: _next
-    nerdIcon.text: "󰒬" 
+
+    nerdIcon: NerdIcon { text: "󰒬" }
     onClicked: root.player.next()
     color: "transparent"
   }

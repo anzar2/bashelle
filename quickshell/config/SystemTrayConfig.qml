@@ -1,8 +1,12 @@
 import Quickshell.Io
+import QtQuick
 
 JsonObject {
-  property real padding: 4
-  property real spacing: 8
-  property real iconSize: 16
+  property var appBlackList: []
+  
+  property var items: JsonObject {
+    property var pinned: ["audio", "upower", "network"]
+    property var onDemand: ["mic", "bluetooth"]
+  }
 }
 

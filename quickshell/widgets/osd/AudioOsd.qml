@@ -1,4 +1,5 @@
 import qs.components
+import qs.services.pipewire
 import qs.services
 import QtQuick
 

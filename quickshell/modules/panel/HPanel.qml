@@ -5,25 +5,26 @@ import Quickshell.Hyprland
 import qs.config
 import QtQuick.Layouts
 import qs.components
+import qs.utils
 import qs.modules.panel.systemtray
 import qs.modules.panel.workspaces
+import qs.services
+import qs.theme
 
 SPanelWindow {
   id: bar
   property int moduleSpacing: 6
   implicitHeight: Config.panel.size
   exclusiveZone: implicitHeight - Config.frames.width
-  WlrLayershell.namespace: "panel"
+  WlrLayershell.namespace: "widget"
   WlrLayershell.layer: WlrLayer.Top
   color: "transparent"
-  visible: !Hyprland.focusedWorkspace.hasFullscreen
-
+    
   SRectangle {
     id: bg
     property real contentHeight: height - (padding * 2)
     anchors.fill: parent
     shadowEnabled: true
-
     padding: 8
     radius: 0
     
@@ -32,6 +33,11 @@ SPanelWindow {
       anchors.left: parent.left
       anchors.leftMargin: 8
       height: bg.contentHeight
+
+      SButton {
+        nerdIcon: NerdIcon { text: NerdIcons.apps }
+        onClicked: Widgets.settings.toggle()
+      }
 
       Workspaces {
         implicitHeight: parent.height
@@ -50,19 +56,20 @@ SPanelWindow {
       height: bg.contentHeight
       spacing: 4
 
+      
 
+      AppsTray { implicitHeight: parent.height }
+      StatusTray {  implicitHeight: parent.height }
 
-      SystemTray {
-        implicitHeight: parent.height
-      }
 
       Clock {
         implicitHeight: parent.height
+        implicitWidth: textItem.implicitWidth + padding * 2
       }
 
       HubLauncher {
         implicitHeight: parent.height
-        implicitWidth: 20
+        implicitWidth: 25
       }
     }
   }

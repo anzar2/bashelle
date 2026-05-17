@@ -1,10 +1,10 @@
 pragma Singleton
 import Quickshell.Services.UPower
-import Quickshell
 import qs.services
 import qs.utils
+import qs.config
 
-Singleton {
+Service {
   property UPowerDevice device: UPower.displayDevice
   property real percentage: Math.round(device.percentage * 100)
   property bool charging: device.state === UPowerDeviceState.Charging
@@ -19,20 +19,24 @@ Singleton {
     if (percentage > 25) return NerdIcons.battery_20
     if (percentage > 10) return NerdIcons.battery_10
     return NerdIcons.battery_10
-  }  
+  } 
+  
+  name: "UPower"
 
   onPercentageChanged: {
-    if (percentage === 25 && !charging) {
-      Notifications.send(
-        qsTr("Energy Service"), 
-        `${qsTr("Battery low")} ${percentage}%`
-      )
-    }
-    if (percentage === 15 && !charging) {
+    if (percentage === Config.upower.verylow_threshold && !charging) {
       Notifications.send(
         qsTr("Energy Service"), 
         `${qsTr("Battery too low")} ${percentage}%`
       )
     }
+ 
+    if (percentage === Config.upower.low_threshold && !charging) {
+      Notifications.send(
+        qsTr("Energy Service"), 
+        `${qsTr("Battery low")} ${percentage}%`
+      )
+    }
+   
   }
 }

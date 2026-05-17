@@ -1,56 +1,17 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
-import qs.services
 import qs.components
 import qs.utils
+import qs.config
+import qs.services
+import QtQuick.Controls
 
 PanelWindow {
   id: desktop
   WlrLayershell.layer: WlrLayer.Background
   color: Qt.alpha("black", 0.0)
   focusable: true
-
-  property list<MenuEntry> menuList: [
-    MenuEntry {
-      text: "Reload"
-      nerdIcon: NerdIcons.reload
-      onTriggered: {
-        Quickshell.execDetached(["hyprctl", "reload"])
-        Quickshell.reload(false)
-      }
-    },
-    MenuEntry {
-      text: "Open terminal"
-      nerdIcon: NerdIcons.terminal
-      onTriggered: Xdg.openTerminal()
-    },
-    MenuEntry {
-      text: "Open Files"
-      nerdIcon: NerdIcons.folder
-      onTriggered: Xdg.open()
-    },
-    MenuEntry { isSeparator: true },
-    MenuEntry {
-      text: "Wallpapers"
-      nerdIcon: NerdIcons.wallpaper
-      onTriggered: Widgets.wallpaperSelector.show()
-    },
-    MenuEntry {
-      text: "Session"
-      nerdIcon: NerdIcons.power
-      hasChildren: true
-      children: [
-        MenuEntry {
-          text: "Power off"
-        }
-      ]
-    }
-  ]
-
-  PopupMenu {
-    id: menu
-  }
 
   anchors {
     top: true
@@ -59,12 +20,60 @@ PanelWindow {
     left: true
   }
 
-
-  TapHandler {
-    acceptedButtons: Qt.RightButton
+  Item {
+    anchors.fill: parent
     
-    onTapped: (event) => {
-      menu.show(desktop, "window", desktop.menuList, event.position.x, event.position.y)
+    ContextMenu.menu: SMenu {
+      id: menu
+      implicitWidth: 150
+
+      SMenuItem {
+        nerdIcon.text: NerdIcons.reload
+        text: "Reload"
+        onClicked: Quickshell.reload(false)
+      }
+
+      SMenuItem {
+        text: "Open Terminal"
+        nerdIcon.text: NerdIcons.terminal
+        onClicked: Xdg.openTerminal()
+      }
+
+      SMenuItem {
+        nerdIcon.text: NerdIcons.folder
+        text: "File Manager"
+        onClicked: Xdg.open()
+      }
+      
+      SMenuSeparator {}
+
+      SMenuItem {
+        nerdIcon.text: NerdIcons.wallpaper
+        text: "Wallpapers"
+        onClicked: Widgets.wallpaperSelector.show()
+      }
+
+      SMenu {
+        title: "Panel"
+        icon.name: NerdIcons.layout
+        implicitWidth: parent.width
+
+        Repeater {
+          model: [
+            { pos: "top",    icon: NerdIcons.border_top    },
+            { pos: "left",   icon: NerdIcons.border_left   }, 
+            { pos: "right",  icon: NerdIcons.border_right  }, 
+            { pos: "bottom", icon: NerdIcons.border_bottom }, 
+          ]
+          delegate: SMenuItem {
+            required property var modelData
+            text: `Move ${modelData.pos}`
+            nerdIcon.text: modelData.icon
+            textItem.font.capitalization: Font.Capitalize
+            onClicked: Config.panel.setPosition(modelData.pos)
+          }
+        }
+      }
     }
   }
 }

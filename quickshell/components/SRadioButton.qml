@@ -18,7 +18,7 @@ RadioButton {
     id: _indicator
     anchors.verticalCenter: parent.verticalCenter
     showBorder: true
-    border.color: Theme.colors.surface_container_high
+    border.color: button.checked ? Theme.colors.primary : Theme.colors.surface_container_highest
     color: Theme.colors.surface_container
     anchors.left: parent.left
     anchors.margins: 6

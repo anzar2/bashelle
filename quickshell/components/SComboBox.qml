@@ -7,13 +7,10 @@ import QtQuick
 ComboBox {
   id: combobox
 
-  popup: Popup {
+  popup: SMenu {
     padding: 4
     width: 100
-    background: SRectangle {
-      showBorder: true
-      shadowEnabled: true
-    }
+    focus: true
     
     contentItem: Column { 
       Repeater { model: combobox.delegateModel } 
@@ -29,13 +26,12 @@ ComboBox {
   }
 
   contentItem: SButton {
-    nerdIcon.text: combobox.currentValue.icon
+    nerdIcon: NerdIcon { text: combobox.currentValue.icon }  
     text: combobox.currentValue.text
-    enabled: false
-    hoverEnabled: true
+    onClicked: combobox.popup.open()
   }
 
-  delegate: SButton {
+  delegate: SMenuItem {
     required property var modelData
     required property int index
     implicitWidth: parent.width

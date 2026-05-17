@@ -84,7 +84,7 @@ WidgetComponent {
       spacing: 6
       
       SButton {
-        nerdIcon.text: NerdIcons.close
+        nerdIcon: NerdIcon { text: NerdIcons.close }        
         onClicked: Widgets.wallpaperSelector.hide()
         Layout.alignment: Qt.AlignRight
       }
@@ -102,7 +102,7 @@ WidgetComponent {
         Layout.fillWidth: true
         
         SButton {
-          nerdIcon.text: "󰣞"
+          nerdIcon: NerdIcon { text: "󰣞" }        
           surface.showBorder: true
           onClicked: Xdg.open(Config.wallpapers.folder)
         }
@@ -124,13 +124,14 @@ WidgetComponent {
         SButton {
           id: applyButton
           text: "Apply"
-          flat: false
+          style: Styles.button.filled
           onClicked: Scripts.setWallpaper(
             Config.theme, 
             carousel.currentWallpaper,
             resizeMenu.currentValue.data,
             monitorsMenu.currentValue.data
           )
+          implicitWidth: 50
         }
       }
 

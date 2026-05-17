@@ -6,7 +6,6 @@ import qs.components
 SRectangle {
   id: root
   property alias icon: _icon
-  property string mimeData: ""
   signal middleClicked()
   color: "transparent"
   shadowEnabled: false

@@ -12,9 +12,8 @@ ColumnLayout {
 
   SSlider {
     Layout.fillWidth: true
-    backgroundRect.showBorder: true
     from: 0
-    implicitHeight: 11
+    implicitHeight: 8
     to: 1
     value: pressed ? value : root.player.position / root.player.length
     onPressedChanged: {

@@ -3,7 +3,10 @@ import qs.services
 import QtQuick.Layouts
 import QtQuick
 import Quickshell
+import QtQuick.Controls
 import qs.config
+import Quickshell.Wayland
+import qs.theme
 import "notifications"
 import "mpris"
 
@@ -11,13 +14,16 @@ import "mpris"
 WidgetComponent {
   id: root
   controller: Widgets.hub
-  implicitWidth: 360
+  implicitWidth: 350
   color: "transparent"
   focusGrab.active: true
+  focusable: true
   onFocusLost: Widgets.hub.hide()
   onEscapePressed: Widgets.hub.hide()
-
   mask: Region { item: _content }
+
+  Component { id: mprisPage; Mpris {} }
+  Component { id: notificationsPage; NotificationList {} }
 
   openAnimation: NumberAnimation {
     id: showAnimation
@@ -49,35 +55,35 @@ WidgetComponent {
     id: _content
     animated: true
     implicitWidth: parent.width
-    implicitHeight: Widgets.hub.expanded ? parent.height : 245
-    anchors.top: Config.panel.isVertical() || Config.panel.isBottom() ? undefined : parent.top
-    anchors.bottom: Config.panel.isVertical() || Config.panel.isBottom() ? parent.bottom : undefined
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
     shadowEnabled: true
     clip: true
-    padding: 10
+    padding: 12
     focus: true
 
     ColumnLayout {
+      id: col
       anchors.fill: parent
       spacing: 10
-      
-      HubHeader {}
 
-      SRectangle {
-        id: hubWidget
+      HubHeader {
+        id: header
+        tabBar.currentIndex: Widgets.hub.lastTabIndex
+        tabBar.onCurrentIndexChanged: Widgets.hub.lastTabIndex = tabBar.currentIndex
+        Layout.fillWidth: true
+      }
+
+      SwipeView {
+        clip: true
+        currentIndex: Widgets.hub.lastTabIndex
+        onCurrentIndexChanged: header.tabBar.currentIndex = currentIndex
+        
+        NotificationList {}
+        Mpris {}
+
         Layout.fillWidth: true
         Layout.fillHeight: true
-        padding: 4
-        
-        NotificationList {
-          anchors.fill: parent
-          active: Widgets.hub.lastTabIdentifier === "notifications"
-        }
-
-        Mpris {
-          anchors.fill: parent
-          active: Widgets.hub.lastTabIdentifier === "mpris"
-        }
       }
     }
   }

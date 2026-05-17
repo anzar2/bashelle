@@ -25,7 +25,7 @@ Loader {
         Item { Layout.fillWidth: true }
         
         SButton {
-          nerdIcon.text: ""
+          nerdIcon: NerdIcon { text: "" }
           onClicked: Notifications.clear()
         }
       }

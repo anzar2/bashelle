@@ -1,12 +1,13 @@
 [config]
 
 [templates.hyprland]
-input_path = "./templates/hyprland-colors.conf"
-output_path = "~/.config/hypr/config/colors.conf"
+input_path = "./templates/hyprlua-colors.lua"
+output_path = "~/.config/hypr/colors.lua"
 
 [templates.kitty]
 input_path = "./templates/kitty-colors.conf"
 output_path = "~/.config/kitty/colors.conf"
+pre_hook = "mkdir -p ~/.config/kitty"
 
 [templates.qs]
 input_path = "./templates/quickshell-colors.json"

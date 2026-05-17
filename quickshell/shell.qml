@@ -6,17 +6,18 @@ import QtQuick
 import qs.modules
 import qs.config
 import qs.services
+import qs.widgets
+import qs.widgets.audio
 import qs.widgets.hub
 import qs.widgets.notifications
 import qs.widgets.wallpaper
 import qs.modules.panel
 import qs.widgets.osd
 import Quickshell.Hyprland
-import qs.widgets
 
 ShellRoot {
   // What services we need to be instanced on start
-  property var services: [Config, Notifications, WlSunset]
+  property var services: [Config, Notifications, Bt]
 
   Variants {
     model: Quickshell.screens
@@ -57,11 +58,19 @@ ShellRoot {
   }
 
   Loader {
-    sourceComponent: ControlCenter {}
-    active: Widgets.controlCenter.active
+    sourceComponent: AudioSettings {}
+    active: Widgets.audioSettings.active
   }
 
-  
+  Loader {
+    sourceComponent: MicSettings {}
+    active: Widgets.micSettings.active
+  }
+
+  Loader {
+    sourceComponent: Settings {}
+    active: Widgets.settings.active
+  }
 
   BarManager {}
 }

@@ -5,13 +5,14 @@ import QtQuick
 import qs.config
 import qs.services
 
-Singleton {
+Service {
+  id: service
+  name: "Notifications"
+  
   property Notification last: null
   property int count: _server.trackedNotifications.values.length
   property alias server: _server
   property alias timer: _timer
-
-  Component.onCompleted: Logger.p("Notifications", "Service started")
 
   NotificationServer { 
     id: _server 
@@ -26,9 +27,10 @@ Singleton {
       if (!Widgets.notification.dnd) {
         Widgets.notification.show()
       }
+
       Notifications.timer.restart()
 
-      Logger.p("Notifications", `${notification.appName}: [${notification.summary},${notification.body}]`)
+      service.log(`${notification.appName}: [${notification.summary},${notification.body}]`)
     }
   }
   
@@ -45,7 +47,7 @@ Singleton {
     id: _timer
     interval: Config.notifications.displayTime
     onTriggered: Widgets.notification.hide()
-  }
+  } 
 
   function send(summary, body, appName="Bashelle") {
     Quickshell.execDetached(["notify-send", 

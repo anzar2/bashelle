@@ -10,6 +10,7 @@ QtObject {
   
   readonly property var iconsMap: [
   [/^zen$/, "zen-browser"],
+  [/^zen-bin$/, "zen-browser"],
   [/^vivaldi-stable$/, "vivaldi"],
   [/^org\.qbittorrent\.qBittorrent$/, "qbittorrent"],
   [/^code-oss$/, "com.visualstudio.code.oss"],
@@ -19,7 +20,8 @@ QtObject {
   [/^Slay the Spire$/, "steam_icon_646570"],
   [/^jetbrains-idea$/, "jetbrains-idea-pj"],
   [/^ONLYOFFICE$/, "onlyoffice-desktopeditors"],
-  [/^VirtualBox Manager$/, "virtualbox"]
+  [/^VirtualBox Manager$/, "virtualbox"],
+  [/^codium$/, "vscodium"]
 ]
 
 function get(className) {

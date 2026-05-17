@@ -1,37 +1,46 @@
+pragma ComponentBehavior: Bound
 import QtQuick 
 import QtQuick.Controls
 import Quickshell.Widgets
 import QtQuick.Layouts
 import qs.components
 import qs.theme
+import qs.types
+import qs.config
 
 // I'll make this cleaner when the time comes
 Button {
   id: button
-  property var style: flat ? flatStyle : fillStyle
-  property var flatStyle: ({
-    background: "transparent",
-    backgroundHovered: Theme.colors.surface_container,
-  })
-
-  readonly property var fillStyle: ({
-    background: Theme.colors.primary,
-    backgroundHovered: Theme.colors.primary,
-  })
+  property ButtonStyle style: Styles.button.clear
 
   property alias textItem: _text
-  property alias nerdIcon: _nerdIcon
   property alias surface: _background
+  // property alias tooltip: _tooltip
   property real textSize: 9
+  property real iconSize: 14
+  property int flow: Flow.LeftToRight
   property int alignment: Qt.AlignCenter
   property int layoutDirection: Qt.LeftToRight
-  property color color: hovered ? style.backgroundHovered : style.background   
-  property color textColor: flat ? Theme.colors.on_surface_variant : Theme.colors.on_primary
-  
-  flat: true
-  padding: 6
-  HoverHandler { cursorShape: Qt.PointingHandCursor }
+  property color color: highlighted || hovered ? style.backgroundHighlight : style.background  
+  property color textColor: highlighted || hovered ? style.foregroundHighlight : style.foreground
+  property Component nerdIcon: null
+  signal rightClicked()
 
+  opacity: enabled ? 1 : 0.5
+  implicitWidth: content.implicitWidth + (padding * 2)
+  TapHandler { acceptedButtons: Qt.RightButton; onTapped: button.rightClicked() }
+  //
+  // SToolTip {
+  //   id: _tooltip
+  //   visible: button.text != "" && button.hovered
+  //   text: button.text
+  //   popupType: Popup.Window
+  //   y: button.height
+  //   delay: 500
+  // }
+
+  padding: 6
+  hoverEnabled: enabled
 
   background: SRectangle {
     id: _background
@@ -40,26 +49,29 @@ Button {
     scale: button.pressed  ? 0.98: 1
   }
 
-  contentItem: RowLayout {
+  contentItem: GridLayout {
     id: content
+    flow: button.flow
     layoutDirection: button.layoutDirection
-    spacing: 4
-    visible: (_nerdIcon.text !== "" || button.text !== "")
-
-    IconImage {
-      visible: button.icon.name !== ""
-      source: Qt.resolvedUrl(button.icon.name)
-      implicitSize: 14
-    }
+    rowSpacing: 8
+    columnSpacing: 8
+    clip: true
     
-    NerdIcon {
-      id: _nerdIcon
-      visible: text !== ""
-      size: 11
-      color: button.textColor
-      leftPadding: button.alignment === Qt.AlignLeft ? 8 : 0
+    Loader {
+      active: button.icon.name != ""       
+      visible: active
+      sourceComponent: IconImage {
+        source: Qt.resolvedUrl(button.icon.name)
+        implicitSize: 14
+      }
+    }
+
+    Loader {
+      id: nerdIconLoader
+      sourceComponent: button.nerdIcon
+      active: button.nerdIcon
+      visible: active
       Layout.alignment: button.alignment
-      z: 99
     }
 
     SText {
@@ -69,12 +81,11 @@ Button {
       size: button.textSize
       font.bold: button.font.bold
       font.capitalization: button.font.capitalization
-      elide: Text.ElideRight
+      leftPadding: 2
       color: button.textColor
-      leftPadding: button.alignment && !_nerdIcon.visible === Qt.AlignLeft ? 8 : 0
-      Layout.alignment: button.alignment
       Layout.fillWidth: true
-      z: 99
     }
   }
+
+  HoverHandler { cursorShape: Qt.PointingHandCursor }
 }

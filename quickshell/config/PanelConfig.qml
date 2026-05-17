@@ -3,7 +3,7 @@ import QtQuick
 
 JsonObject {
   property string position // top | bottom | right | left
-  property int size: 30
+  property int size: 45
   
   function isVertical(): bool { return position === "left" || position === "right" }
   function isRight(): bool {  return position === "right" }

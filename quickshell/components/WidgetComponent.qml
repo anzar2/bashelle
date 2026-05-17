@@ -2,6 +2,7 @@ import qs.components
 import qs.config
 import Quickshell.Hyprland
 import QtQuick
+import Quickshell.Wayland
 
 SPanelWindow {
   id: widget
@@ -13,7 +14,7 @@ SPanelWindow {
   
   signal focusLost()
   signal escapePressed()
-  color: "white"
+  color: "transparent"
 
   Component.onCompleted: {
     if (widget.openAnimation) {

@@ -12,6 +12,7 @@ SPanelWindow {
   id: root
   property var borderWidth: Config.frames.enabled ? Config.frames.width : 0
   WlrLayershell.layer: WlrLayer.Top
+  exclusionMode: ExclusionMode.Ignore
   color: "transparent"
   visible: true
   

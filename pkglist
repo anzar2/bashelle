@@ -1,17 +1,14 @@
 # This packages needs yay or paru for some AUR packages
 awww
 matugen
-quickshell-git
+quickshell
 qt6-declarative
 qt6-multimedia
-kitty
 swappy
 grim
 slurp
 gammastep
-ttf-jetbrains-mono-nerd
 xdg-desktop-portal-hyprland
-hyprsunset
 jq
 papirus-icon-theme
 ttf-nerd-fonts-symbols

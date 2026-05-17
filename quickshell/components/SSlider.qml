@@ -2,53 +2,54 @@ pragma ComponentBehavior: Bound
 import QtQuick.Controls
 import QtQuick
 import qs.theme
+import qs.config
 
 Slider {
   id: slider
-  property alias backgroundRect: bg
-  property alias fillRect: fill
-
-  from: 0
-  to: 1
-  padding: 0
-  implicitWidth: slider.vertical ? 8 : 150
-  implicitHeight: slider.vertical ? 150 : 8
-
-  handle: Item {}
-
+  property bool highlighted: slider.hovered || slider.pressed
+  stepSize: 0.01
+  snapMode: Slider.SnapAlways
+  implicitHeight: 16
+  
   background: Item {
-    width: slider.width
-    height: slider.height
-
-   SRectangle {
+    Rectangle {
       id: bg
-      implicitWidth: parent.width
-      implicitHeight: parent.height
+      implicitHeight: 2
+      radius: Config.appearance.radius
+      implicitWidth: slider.width
+      anchors.verticalCenter: parent.verticalCenter
       color: Theme.colors.surface_container_high
-      showBorder: false
     }
 
-    SRectangle {
+    Rectangle {
       id: fill
-      anchors.bottom: parent.bottom
-      width: slider.vertical ? parent.width : slider.visualPosition * parent.width
-      height: slider.vertical ? (1 - slider.visualPosition) * parent.height : parent.height
-      color: sliderHover.hovered ? Theme.colors.secondary : Theme.colors.primary
+      implicitHeight: (bg.height * 2)
+      implicitWidth: slider.width * slider.value
 
-      Behavior on width {
-        NumberAnimation { 
-          duration: 100
-        }
-      }
+      anchors.verticalCenter: parent.verticalCenter
+      color: Theme.colors.primary
+      radius: bg.radius
+    }
+  }
 
-      Behavior on height {
-        NumberAnimation {
-          duration: 100
-        }
+  handle: Rectangle {
+    x: slider.leftPadding + slider.visualPosition * (slider.availableWidth - width)
+    y: slider.leftPadding + slider.availableHeight / 2 - height / 2
+    scale: slider.highlighted ? 1.2 : 1
+    radius: Config.appearance.radius
+    implicitWidth:  10
+    implicitHeight: 10
+    border.width: 2
+    border.color: Theme.colors.primary
+    color: Theme.colors.primary
+    
+    Behavior on scale {
+      NumberAnimation {
+        easing.type: Easing.OutQuad
+        duration: 150
       }
     }
-    
-    HoverHandler { id: sliderHover; cursorShape: Qt.PointingHandCursor }
   }
-}
 
+  HoverHandler {cursorShape:Qt.PointingHandCursor}
+}

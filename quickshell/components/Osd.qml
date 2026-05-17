@@ -10,6 +10,9 @@ WidgetComponent {
   property string label
   property string icon
   signal moved(value: real)
+
+  focusGrab.active: false
+  focusable: false
   
   mask: Region { item: content }
   implicitHeight: 60

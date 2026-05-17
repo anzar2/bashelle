@@ -7,8 +7,12 @@ import QtQuick.Effects
 Item {
   id: root
   property MprisPlayer player
-  visible: player.trackArtUrl !== ""
+  opacity: player.trackArtUrl !== "" ? 0.3 : 0
   anchors.fill: parent
+
+  Behavior on opacity {
+    NumberAnimation {}
+  }
 
   SRectangle {
     id: rectMask

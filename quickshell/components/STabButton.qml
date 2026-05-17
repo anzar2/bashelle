@@ -2,32 +2,47 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick
 import qs.config
+import qs.theme
 
 TabButton {
   id: button
+  property string identifier
   property alias nerdIcon: _nerdIcon
   property alias textItem: _textItem
-  
-
   implicitWidth: contentItem.implicitWidth + padding * 4
-  font.family: Config.fontFamily
+  font.family: Config.appearance.fontFamily
   padding: 4
 
   background: SRectangle { color: "transparent" }
-  contentItem: RowLayout {
+  contentItem: Item {
+    implicitWidth: _row.implicitWidth
+    implicitHeight: _row.implicitHeight
+
+  RowLayout {
+    id: _row
+    anchors.centerIn: parent
+    spacing: 8
+
     NerdIcon {
       id: _nerdIcon
       visible: text !== ""
-      Layout.alignment: Qt.AlignCenter
-    }
 
+      opacity: button.checked ? 1 : 0.7
+      color: button.checked ?
+          Theme.colors.primary :
+          Theme.colors.on_surface
+    }
     SText {
       id: _textItem
       text: button.text
-      font: button.font
       visible: text !== ""
-      Layout.alignment: Qt.AlignCenter
+      size: 9
+      opacity: button.checked ? 1 : 0.7
+      color: button.checked ?
+          Theme.colors.primary :
+          Theme.colors.on_surface
     }
   }
+}
   HoverHandler { cursorShape: Qt.PointingHandCursor }
 }

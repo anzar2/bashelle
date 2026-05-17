@@ -4,7 +4,9 @@ import Quickshell.Hyprland
 import qs.config
 import qs.components
 import qs.modules.panel.systemtray
+import qs.services
 import qs.modules.panel.workspaces
+import qs.utils
 
 SPanelWindow {
   id: bar
@@ -15,19 +17,23 @@ SPanelWindow {
 
   WlrLayershell.namespace: "panel"
   WlrLayershell.layer: WlrLayer.Top
-  visible: !Hyprland.focusedWorkspace.hasFullscreen
-
+  
   SRectangle {
     id: bg
     property real contentWidth: width - (padding * 2)
     anchors.fill: parent
-    
     padding: 8
     radius: 0
      
     Column {
       anchors.top: parent.top
       width: bg.contentWidth
+
+
+      SButton {
+        nerdIcon: NerdIcon { text: NerdIcons.apps }
+        onClicked: Widgets.settings.toggle()
+      }
       
       Workspaces {
         implicitWidth: parent.width
@@ -40,9 +46,9 @@ SPanelWindow {
       width: bg.contentWidth
       spacing: 4
       
-      SystemTray { 
-        implicitWidth: parent.width 
-      }
+      
+      AppsTray { implicitWidth: parent.width }
+      StatusTray { implicitWidth: parent.width }
       Clock {  implicitWidth: parent.width  }
       HubLauncher { implicitWidth: parent.width }
     }

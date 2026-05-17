@@ -1,52 +1,45 @@
 pragma ComponentBehavior: Bound
 import Quickshell.Services.SystemTray
-import Quickshell.Widgets
+import QtQuick.Layouts
 import QtQuick
+import QtQuick.Controls
 import qs.config
 import qs.components
 import Quickshell
+import qs.theme
 
-Item {
-  id: root
-  property alias icons: _iconsFlow
-  property list<SystemTrayItem> appItems: []
+SRectangle {
+  id: apptray
 
-  implicitWidth: Config.panel.isVertical() ? parent.width : (icons.width + icons.spacing * 4)
-  implicitHeight: Config.panel.isVertical() ? (icons.height + icons.spacing * 4):  parent.height
-  visible: appItems.length > 0
+  implicitWidth: grid.width
+  implicitHeight: grid.height
+  visible: SystemTray.items.values.length > 0
+  showBorder: true
+  color: Qt.alpha(Theme.colors.surface_container, 0.5)
 
-  AppTrayMenu {
-    id: menu
-  }
-
-  Flow {
-    id: _iconsFlow
+  GridLayout {
+    id: grid
     flow: Config.panel.getFlow()
+    rowSpacing: 0; columnSpacing: 0
     anchors.centerIn: parent
-    spacing: 4
-
 
     Repeater {
-      model: root.appItems
-      delegate: IconImage {
-        id: icon
+      model: SystemTray.items
+      delegate: ButtonMenu {
+        id: button
         required property SystemTrayItem modelData
-        source: modelData.icon
-        implicitSize: 15
-        HoverHandler { id: hoverHandler; cursorShape: Qt.PointingHandCursor }
+        icon.name: modelData.icon
 
-        QsMenuOpener {
-          id: menuOpener
-          menu: icon.modelData.menu
+        menu: SMenu {
+          popupType: Popup.Window
+          implicitWidth: parent.width
         }
-
-        TapHandler {
-          onSingleTapped: {
-            let y = Config.panel.isVertical() ? 0 : root.height + 6
-            menu.show(root, "item", menuOpener, root.width + 6, y)
-          }
-        }
+        
+        Layout.minimumWidth: 20
+        Layout.fillWidth: true
+        Layout.fillHeight: true
       }
     }
   }
+
 }
