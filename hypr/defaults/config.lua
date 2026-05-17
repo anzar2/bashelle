@@ -57,9 +57,3 @@ hl.config({
     scroll_factor = 1
   },
 })
-
-hl.gesture({
-  fingers = 3,
-  direction = "horizontal",
-  action = "workspace"
-})

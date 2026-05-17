@@ -1,4 +1,4 @@
--- if true then return {} end -- WARN: Delete this line to load this file
+if true then return {} end -- WARN: Delete this line to load this file
 
 
 -- Example
