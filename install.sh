@@ -162,7 +162,7 @@ cli_installation() {
   echo "  What it does? "
   echo "    - Manage Bashelle versions"
   echo "    - Create backups"
-  echo "    - and more"
+  echo "    - Call quickshell shortcuts"
   echo 
   echo "  Whether you decide to install or not"
   echo "  it won't affect functionality"
