@@ -12,7 +12,6 @@ hl.config({
     allow_tearing    = false,
     layout           = "dwindle",
   },
-  input   = require("bashelle.input"),
 })
 
 -- Appearance
@@ -42,18 +41,20 @@ hl.config({
 
 -- Input
 hl.config({
-  kb_layout    = "us",
-  kb_variant   = "",
-  kb_model     = "",
-  kb_options   = "",
-  kb_rules     = "",
+  input = {
+    kb_layout    = "us",
+    kb_variant   = "",
+    kb_model     = "",
+    kb_options   = "",
+    kb_rules     = "",
 
-  follow_mouse = 1,
+    follow_mouse = 1,
 
-  sensitivity  = 0, -- -1.0 - 1.0, 0 means no modification.
+    sensitivity  = 0, -- -1.0 - 1.0, 0 means no modification.
 
-  touchpad     = {
-    natural_scroll = false,
-    scroll_factor = 1
-  },
+    touchpad     = {
+      natural_scroll = false,
+      scroll_factor = 1
+    },
+  }
 })
