@@ -32,7 +32,7 @@ SPanelWindow {
 
       SButton {
         nerdIcon: NerdIcon { text: NerdIcons.apps }
-        onClicked: Widgets.settings.toggle()
+        onClicked: {}
       }
       
       Workspaces {

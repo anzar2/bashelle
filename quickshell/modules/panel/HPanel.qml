@@ -15,7 +15,7 @@ SPanelWindow {
   id: bar
   property int moduleSpacing: 6
   implicitHeight: Config.panel.size
-  exclusiveZone: implicitHeight - Config.frames.width
+  exclusiveZone: implicitHeight
   WlrLayershell.namespace: "widget"
   WlrLayershell.layer: WlrLayer.Top
   color: "transparent"
@@ -24,7 +24,7 @@ SPanelWindow {
     id: bg
     property real contentHeight: height - (padding * 2)
     anchors.fill: parent
-    shadowEnabled: true
+    shadowEnabled: true   
     padding: 8
     radius: 0
     

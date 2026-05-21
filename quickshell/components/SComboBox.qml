@@ -26,8 +26,8 @@ ComboBox {
   }
 
   contentItem: SButton {
-    nerdIcon: NerdIcon { text: combobox.currentValue.icon }  
-    text: combobox.currentValue.text
+    nerdIcon: NerdIcon { text: combobox.currentValue?.icon ?? "" }  
+    text: combobox.currentValue?.text ?? ""
     onClicked: combobox.popup.open()
   }
 
@@ -35,8 +35,8 @@ ComboBox {
     required property var modelData
     required property int index
     implicitWidth: parent.width
-    text: modelData.text
-    nerdIcon.text: modelData.icon
+    text: modelData.text ?? ""
+    nerdIcon.text: modelData.icon ?? ""
     onClicked: combobox.currentValue = modelData.data
   }
   

@@ -12,12 +12,12 @@ QtObject {
 
   onRawVolumeChanged: {
     Widgets.audioOsd.show()
-    OsdSettings.audioTimer.restart()
+    Osd.audioTimer.restart()
   }
 
   onMutedChanged: {
     Widgets.audioOsd.show()
-    OsdSettings.audioTimer.restart()
+    Osd.audioTimer.restart()
   }
 
   property string icon: {

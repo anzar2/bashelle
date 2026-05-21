@@ -4,17 +4,17 @@ import qs.utils
 SegmentedControl {
   id: control
   property bool showLabel: false
-  currentIndex: Config.theme === "dark"
+  currentIndex: Config.appearance.theme === "dark"
 
   SegmentedButton {
     nerdIcon.text: NerdIcons.sun
     text: control.showLabel ? "Light" : ""
-    onClicked: Config.theme = "light"
+    onClicked: Config.appearance.theme = "light"
   }
 
   SegmentedButton {
     nerdIcon.text: NerdIcons.moon
     text: control.showLabel ? "Dark" : ""
-    onClicked: Config.theme = "dark"
+    onClicked: Config.appearance.theme = "dark"
   }
 }

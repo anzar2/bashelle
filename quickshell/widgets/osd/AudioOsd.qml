@@ -3,13 +3,13 @@ import qs.services.pipewire
 import qs.services
 import QtQuick
 
-Osd {
+OsdComponent {
   controller: Widgets.audioOsd
-  onMouseEntered: OsdSettings.audioTimer.stop()
-  onMouseExited: OsdSettings.audioTimer.restart()
+  onMouseEntered: Osd.audioTimer.stop()
+  onMouseExited: Osd.audioTimer.restart()
   
   icon: Audio.sink.icon
   value: Audio.sink.rawVolume
   label: Audio.sink.volume
-  onMoved: (v) => { Audio.sink.setVolume(v) }
+  onMoved: (v) => Audio.sink.setVolume(v)
 }

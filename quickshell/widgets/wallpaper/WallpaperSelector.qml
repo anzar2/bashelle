@@ -46,27 +46,6 @@ WidgetComponent {
     nameFilters: ["*.jpg", "*.jpeg", "*.gif", "*.png"]
   }
 
-
-  ListModel {
-    id: resizeModel
-    ListElement { text: "Crop";  icon: "󰆞"; data: "crop" }
-    ListElement { text: "Fit"; icon: "󱣴"; data: "fit" }
-    ListElement { text: "Center"; icon: "󰋱"; data: "no" }
-  }
-
-  ListModel {
-    id: monitorsModel
-    
-    ListElement { text: "All"; icon: "󰍹"; data: "all" }
-
-    Component.onCompleted: {
-      for (let screen of Quickshell.screens) {
-        append({ text: screen.name, icon: "󰍹", data: screen.name })
-      }
-    }
-    
-  }
-
   SRectangle {
     id: content
     implicitHeight: parent.height
@@ -102,19 +81,26 @@ WidgetComponent {
         Layout.fillWidth: true
         
         SButton {
-          nerdIcon: NerdIcon { text: "󰣞" }        
+          nerdIcon: NerdIcon { text: NerdIcons.folder }        
           surface.showBorder: true
           onClicked: Xdg.open(Config.wallpapers.folder)
         }
 
         SComboBox {
           id: resizeMenu
-          model: resizeModel
+          model: [
+            { text: "Crop",   icon: NerdIcons.crop,           data: "crop" },
+            { text: "Fit",    icon: NerdIcons.fit_to_screen,  data: "fit" },
+            { text: "Center", icon: NerdIcons.image_center,   data: "no" },
+          ]
         }
 
         SComboBox {
           id: monitorsMenu
-          model: monitorsModel
+          model: [
+            { text: "All", icon: NerdIcons.monitor, data: Quickshell.screens.map(screen => screen.name).join(",")},
+            ...Quickshell.screens.map(s => ({ text: s.name, icon: NerdIcons.monitor, data: s.name }))
+          ]
         }
 
         Item { Layout.fillWidth: true }    
@@ -125,12 +111,16 @@ WidgetComponent {
           id: applyButton
           text: "Apply"
           style: Styles.button.filled
-          onClicked: Scripts.setWallpaper(
-            Config.theme, 
-            carousel.currentWallpaper,
-            resizeMenu.currentValue.data,
-            monitorsMenu.currentValue.data
-          )
+          onClicked: {
+            if (Config.appearance.accentColor === "auto") {
+              Matugen.image(carousel.currentWallpaper, Config.appearance.theme)
+            }
+
+            Awww.setImage(carousel.currentWallpaper, {
+              outputs:    monitorsMenu.currentValue.data,
+              resizeMode: resizeMenu.currentValue.data
+            })
+          }
           implicitWidth: 50
         }
       }

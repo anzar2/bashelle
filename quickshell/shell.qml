@@ -17,7 +17,7 @@ import Quickshell.Hyprland
 
 ShellRoot {
   // What services we need to be instanced on start
-  property var services: [Config, Notifications, Bt]
+  property var services: [Config, Awww, Matugen, Notifications, Bt]
 
   Variants {
     model: Quickshell.screens

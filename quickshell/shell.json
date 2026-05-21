@@ -1,20 +1,20 @@
 {
     "appearance": {
-        "accentColor": "#ed8796",
-        "fontFamily": "Adwaita Sans",
+        "accentColor": "auto",
+        "fontFamily": "Noto Sans",
         "fontScale": 1,
-        "radius": 8,
+        "radius": 16,
         "shadows": true,
         "theme": "dark"
     },
     "bluetooth": {
-        "showName": false
+        "showName": true
     },
     "clock": {
         "bold": false,
         "fontSize": 9,
         "horizontalFormat": "hh:mm",
-        "verticalFormat": "hh mm"
+        "verticalFormat": "hh\nmm"
     },
     "frames": {
         "enabled": false,
@@ -28,29 +28,31 @@
         "compact": false,
         "displayTime": 4500,
         "position": [
-            "",
+            "top",
             ""
         ]
     },
     "panel": {
-        "position": "left",
-        "size": 45
+        "position": "top",
+        "size": 42
     },
     "pipewire": {
         "audio": {
-            "showPercentage": false
+            "showPercentage": true
         },
         "mic": {
             "showPercentage": false
         }
     },
     "systemTray": {
-        "appBlackList": [],
+        "appBlackList": [
+        ],
         "items": {
-            "onDemand": [],
-            "pinned": [
-                "bluetooth",
+            "onDemand": [
                 "mic",
+                "bluetooth"
+            ],
+            "pinned": [
                 "audio",
                 "upower",
                 "network"
@@ -63,8 +65,11 @@
         "verylow_threshold": 15
     },
     "wallpapers": {
-        "fallbackColor": "000000",
-        "folder": "~/.config/wallpapers"
+        "folder": "~/.config/wallpapers",
+        "transitionDuration": 1,
+        "transitionFps": 60,
+        "transitionStep": 90,
+        "transitionType": "random"
     },
     "workspaces": {
         "iconSize": 16,

@@ -55,7 +55,7 @@ Button {
     layoutDirection: button.layoutDirection
     rowSpacing: 8
     columnSpacing: 8
-    clip: true
+    clip: false
     
     Loader {
       active: button.icon.name != ""       
@@ -81,8 +81,8 @@ Button {
       size: button.textSize
       font.bold: button.font.bold
       font.capitalization: button.font.capitalization
-      leftPadding: 2
       color: button.textColor
+      Layout.alignment: button.alignment
       Layout.fillWidth: true
     }
   }

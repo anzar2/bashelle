@@ -5,6 +5,8 @@ import qs.utils
 import qs.config
 
 Service {
+  name: "UPower"
+  ready: device !== null
   property UPowerDevice device: UPower.displayDevice
   property real percentage: Math.round(device.percentage * 100)
   property bool charging: device.state === UPowerDeviceState.Charging
@@ -21,7 +23,6 @@ Service {
     return NerdIcons.battery_10
   } 
   
-  name: "UPower"
 
   onPercentageChanged: {
     if (percentage === Config.upower.verylow_threshold && !charging) {

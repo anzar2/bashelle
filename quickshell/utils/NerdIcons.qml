@@ -71,4 +71,9 @@ Singleton {
   property string border_right: "󰢥"
   property string border_bottom: "󰢢"
   property string palette: ""
+  property string crop: "󰆞"
+  property string fit_to_screen: "󱣴"
+  property string image_center: "󰻿"
+  property string monitor: "󰍹"
+  property string monitor_small: "󱡶"
 }

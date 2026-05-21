@@ -8,28 +8,23 @@ Service {
   id: service
   name: "Hyprland"
 
-  property HyprlandWorkspace focusedWorkspace: Hyprland.focusedWorkspace
-   
-  property list<HyprlandWorkspace> workspaces: special.enabled ?
-    Hyprland.workspaces.values.filter(ws => ws.id < 0) :
-    Hyprland.workspaces.values.filter(ws => ws.id > 0)
-    
-    property var special: QtObject {
+  component SpecialWorkspace: QtObject {
     property bool enabled: false
-    property string name: ""
-    property string monitor: ""
+    property string name
+    property string monitor
 
     onNameChanged: name = name.replace("special:", "")
   }
-  
-  Process { 
-    id: daemon 
-    onRunningChanged: running && service.log(daemon.command.join(" "))
-    stdout: StdioCollector {
-      onStreamFinished: service.log(text)
-    }
-  }
 
+  property HyprlandWorkspace focusedWorkspace: Hyprland.focusedWorkspace
+   
+  property SpecialWorkspace special: SpecialWorkspace {}
+  
+  property list<HyprlandWorkspace> workspaces: special.enabled ?
+    Hyprland.workspaces.values.filter(ws => ws.id < 0) :
+    Hyprland.workspaces.values.filter(ws => ws.id > 0)
+  
+  
   function close(window: string) {
     let w = window.length === 0 ? "" : `{ window = "${window}" }` 
     daemon.command = ["hyprctl", "dispatch", `hl.dsp.window.close(${w})`]
@@ -66,6 +61,15 @@ Service {
   function dispatch(cmd: string) {
     daemon.command = ["hyprctl", "dispatch", cmd]    
     daemon.running = true
+  }
+
+
+  Process { 
+    id: daemon 
+    onRunningChanged: running && service.log(daemon.command)
+    stdout: StdioCollector {
+      onStreamFinished: service.log(text)
+    }
   }
 
   Connections {

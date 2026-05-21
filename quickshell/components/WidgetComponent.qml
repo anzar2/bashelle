@@ -2,16 +2,16 @@ import qs.components
 import qs.config
 import Quickshell.Hyprland
 import QtQuick
-import Quickshell.Wayland
 
 SPanelWindow {
   id: widget
   default property alias items: _items.data
+  property alias itemContent: _items
   property alias focusGrab: _focusGrab
   property var controller: null
   property Animation openAnimation: null
   property Animation hideAnimation: null
-  
+
   signal focusLost()
   signal escapePressed()
   color: "transparent"

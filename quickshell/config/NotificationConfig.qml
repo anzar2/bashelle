@@ -3,7 +3,7 @@ import Quickshell.Io
 JsonObject {
   property bool compact: false
   property int displayTime: 4500
-  property list<string> position: ["", ""]  // y,x
+  property list<string> position: ["top", ""]  // y,x
   
   function isTop(): bool    { return position[0] === "top" }
   function isBottom(): bool { return position[0] === "bottom" }

@@ -3,6 +3,7 @@ import qs.components
 import qs.theme
 import qs.config
 import qs.utils
+import QtQuick.Layouts
 import qs.services
 import Quickshell.Hyprland
 import QtQuick
@@ -12,84 +13,64 @@ import Quickshell
 SRectangle {
   id: root
   property ShellScreen monitor: NaN
-  property real indicatorSize: (Config.panel.isVertical() ? implicitWidth : implicitHeight) - wsFlow.padding
-
-  color: Qt.alpha(Theme.colors.primary, 0.05)
-  // radius: Config.workspaces.radius
+  property real indicatorSize: (Config.panel.isVertical() ? implicitWidth : implicitHeight) - padding * 2
+  
+  clip: true   
+  padding: 0
+  color: Theme.colors.surface_container_low
   showBorder: true
-  implicitWidth: wsFlow.width
-  implicitHeight: wsFlow.height
+  implicitWidth: list.contentWidth + padding * 2
+  implicitHeight: list.contentHeight + padding * 2
 
-  Flow {
-    id: wsFlow
+  ListView {
+    id: list
+    model: Hypr.workspaces
     spacing: Config.workspaces.workspaceSpacing
-    padding: 2
-    flow: Config.panel.getFlow()
+    currentIndex: Hypr.workspaces.indexOf(Hypr.focusedWorkspace)
+    width: Config.panel.isVertical() ?  parent.width  :  contentWidth
+    height: Config.panel.isVertical() ? contentHeight :  parent.height
+    orientation: Config.panel.isVertical() ? ListView.Vertical : ListView.Horizontal
+    delegate: WorkspaceIndicator {
+      required property HyprlandWorkspace modelData
+      toplevels: modelData?.toplevels
+      focused: modelData?.id === Hypr.focusedWorkspace?.id
+      isSpecial: Hypr.special.enabled
+      onClicked: Hypr.focus({ workspace: modelData.id })
+      width:  isEmpty || Config.panel.isVertical() ? root.indicatorSize : grid.width + list.spacing
+      height: isEmpty || !Config.panel.isVertical() ? root.indicatorSize : grid.height + list.spacing
+    }
 
-    Repeater {
-      model: Hypr.workspaces.filter(ws => ws.monitor?.name === root.monitor.name)
-      delegate: WorkspaceIndicator {
-        id: indicator
-        required property HyprlandWorkspace modelData
-        implicitWidth: modelData.toplevels.values.length === 0 ? root.indicatorSize : topLevels.width
-        implicitHeight: modelData.toplevels.values.length === 0 ? root.indicatorSize : topLevels.height
-        radius: root.radius
-        focused: modelData.focused || Hypr.special.enabled
-        background.scale: focused || hovered || modelData.toplevels.values.length > 0 ? 1 : 0
-        dot.visible: modelData.toplevels.values.length === 0
-        onClicked: Hypr.focus({ workspace: modelData.id })
-        z: -1
+    highlight: Rectangle {
+      color: Theme.colors.primary
+      radius: Config.appearance.radius
+      width: list.currentItem?.width  ?? 0
+      height: list.currentItem?.height ?? 0
+      x: list.currentItem?.x ?? 0
+      y: list.currentItem?.y ?? 0
+      
+      Behavior on width {
+        NumberAnimation { duration: 150; easing.type: Easing.OutSine }
+      }
 
-        Flow {
-          id: topLevels
-          anchors.centerIn: parent
-          flow: wsFlow.flow
-          spacing: Config.workspaces.iconSpacing
+      Behavior on height {
+        NumberAnimation { duration: 150; easing.type: Easing.OutSine }
+      }
 
-          Repeater {
-            model: indicator.modelData.toplevels
-            delegate: WorkspaceToplevel {
-              id: toplevel
-              required property HyprlandToplevel modelData
-              property string iconUrl: IconsMap.get(modelData?.lastIpcObject.initialClass ?? "")
+      Behavior on y {
+        SpringAnimation {
+          spring: 8
+          damping: 0.5
+        }
+      }
 
-              implicitWidth: root.indicatorSize
-              implicitHeight: root.indicatorSize
-              icon.implicitSize: root.indicatorSize * 0.8
-              icon.source:iconUrl            
-              onMiddleClicked: Hypr.close(`address:0x${modelData.address}`)
-
-              TapHandler {
-                acceptedButtons: Qt.LeftButton
-                onSingleTapped: {
-                  Hypr.alter_zorder("top", `address:0x${toplevel.modelData.address}`)
-                }
-              }
-            }
-          }
-
-          add: Transition {
-            NumberAnimation {
-              property: "scale"
-              from: 0
-              to: 1
-              duration: 250
-              easing.type: Easing.OutBack
-            }
-          }
+      Behavior on x {
+        SpringAnimation {
+          spring: 8
+          damping: 0.5
         }
       }
     }
-  }
 
-  MouseArea {
-    anchors.fill: parent
-    z: -1
-    onWheel: (event) => {
-      if (event.angleDelta.y > 0) {
-        Hypr.focus({ workspace: "-1" });
-      } else
-        Hypr.focus({ workspace: "+1" });
-    }
+    highlightFollowsCurrentItem: false
   }
 }

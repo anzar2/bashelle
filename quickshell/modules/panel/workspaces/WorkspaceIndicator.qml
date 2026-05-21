@@ -1,48 +1,73 @@
+pragma ComponentBehavior: Bound
 import qs.components
+import Quickshell
 import QtQuick
+import QtQuick.Layouts
+import qs.config
 import qs.theme
+import Quickshell.Hyprland
+import qs.utils
+import QtQuick.Controls
+import Quickshell.Widgets
 
 Item {
-  id: root
-  property alias background: _background
-  property alias dot: _dot
-  property int radius: 0
-  property bool hovered: hoverHandler.hovered
-  property bool pressed: tapHandler.pressed
+  id: workspace
+  property alias grid: _grid
   property bool focused: false
-  property NumberAnimation scaleAnimation: NumberAnimation { easing.type: Easing.OutBack }
-
+  property bool hovered: hoverhandler.hovered
+  property bool isSpecial: false
+  property bool isEmpty: toplevels.values.length == 0
+  property var toplevels
+  width:  grid.width
+  height: grid.height   
   signal clicked()
 
-  Behavior on implicitWidth { NumberAnimation { easing.type: Easing.OutBack; duration: 350 } }
-  Behavior on implicitHeight { NumberAnimation { easing.type: Easing.OutBack; duration: 350 } }
 
-  SRectangle {
-    id: _background
+  Rectangle {
+    id: bg
+    radius: Config.appearance.radius
     anchors.fill: parent
-    radius: parent.radius
-    color: root.focused ? Theme.colors.primary :  Qt.alpha(Theme.colors.secondary, 0.2)
-    z: 0
-    animated: true
+    scale: workspace.hovered || workspace.isSpecial || workspace.toplevels.values.length > 0 ? 1 : 0
+    color: workspace.focused ? "transparent" : Theme.colors.surface_container_highest
+
     Behavior on scale {
-      animation: root.scaleAnimation
+      NumberAnimation {
+        duration: 150
+      }
     }
   }
 
-  SRectangle {
-    id: _dot
-    implicitHeight: Math.round(_background.height / 5)
-    implicitWidth: Math.round(_background.width / 5)
+
+  Rectangle {
+    id: dot
+    radius: Config.appearance.radius
+    implicitWidth: parent.width / 6
+    implicitHeight: parent.height / 6
+    anchors.centerIn: bg
+    color: workspace.focused ? Theme.colors.on_primary : Qt.alpha(Theme.colors.primary, 0.5)
+    visible: workspace.toplevels.values.length == 0
+  }
+
+  GridLayout {
+    id: _grid
+    flow: Config.panel.getFlow()
+    rowSpacing: Config.workspaces.iconSpacing
+    columnSpacing: Config.workspaces.iconSpacing
     anchors.centerIn: parent
-    radius: parent.radius
-    color: root.focused ? Theme.colors.surface : Qt.alpha(Theme.colors.primary, 0.2)
-    z: 1
+    
+    Repeater {
+      model: workspace.toplevels
+      delegate: IconImage {
+        required property HyprlandToplevel modelData
+        implicitSize: Config.workspaces.iconSize
+        source: IconsMap.get(modelData?.lastIpcObject.initialClass ?? "")         
+        Layout.margins: 0
+        Layout.alignment: Qt.AlignCenter
+        Component.onCompleted: Hyprland.refreshToplevels()
+      }
+    }
   }
 
-  TapHandler {
-    id: tapHandler
-    onSingleTapped: parent.clicked()
-  }
-
-  HoverHandler { id: hoverHandler }
+  HoverHandler { id: hoverhandler; enabled: !workspace.focused }
+  TapHandler   { id: tapHandler;   onTapped: workspace.clicked() }
 }
