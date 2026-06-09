@@ -1,67 +1,74 @@
 {
     "appearance": {
         "accentColor": "auto",
-        "fontFamily": "Noto Sans",
+        "fontFamily": "Adwaita Sans",
         "fontScale": 1,
-        "radius": 16,
+        "preferredMonitorWallpaperIndex": 0,
+        "radius": 8,
         "shadows": true,
         "theme": "dark"
-    },
-    "bluetooth": {
-        "showName": true
     },
     "clock": {
         "bold": false,
         "fontSize": 9,
         "horizontalFormat": "hh:mm",
+        "icon": true,
         "verticalFormat": "hh\nmm"
     },
-    "frames": {
-        "enabled": false,
-        "radius": 16,
-        "width": 4
-    },
-    "network": {
-        "showName": false
-    },
     "notifications": {
-        "compact": false,
-        "displayTime": 4500,
-        "position": [
-            "top",
-            ""
-        ]
+        "displayTime": -1,
+        "position": "top:right",
+        "showCount": false
     },
     "panel": {
-        "position": "top",
-        "size": 42
-    },
-    "pipewire": {
-        "audio": {
-            "showPercentage": true
+        "backgroundOpacity": 1,
+        "margins": 0,
+        "moduleSpacing": 4,
+        "modules": {
+            "center": [
+            ],
+            "end": [
+                "status_tray",
+                "separator",
+                "notifications",
+                "clock"
+            ],
+            "start": [
+                "workspaces",
+                "separator"
+            ]
         },
-        "mic": {
-            "showPercentage": false
-        }
+        "position": "top",
+        "radius": 0,
+        "size": 40
     },
     "systemTray": {
-        "appBlackList": [
+        "columnSpacing": 0,
+        "fontSize": 7.6,
+        "items": [
+            {
+                "active": true,
+                "name": "mic",
+                "reactive": true,
+                "showPercentage": false
+            },
+            {
+                "active": true,
+                "name": "battery",
+                "reactive": false,
+                "showPercentage": false
+            },
+            {
+                "active": true,
+                "name": "sound",
+                "showPercentage": false
+            }
         ],
-        "items": {
-            "onDemand": [
-                "mic",
-                "bluetooth"
-            ],
-            "pinned": [
-                "audio",
-                "upower",
-                "network"
-            ]
-        }
+        "moduleSpacing": 4,
+        "rowSpacing": 4
     },
     "upower": {
         "low_threshold": 25,
-        "showPercentage": true,
         "verylow_threshold": 15
     },
     "wallpapers": {
@@ -72,9 +79,9 @@
         "transitionType": "random"
     },
     "workspaces": {
-        "iconSize": 16,
-        "iconSpacing": 6,
-        "radius": 99,
-        "workspaceSpacing": 8
+        "iconSize": 25,
+        "iconSpacing": 4,
+        "radius": 25,
+        "workspaceSpacing": 6
     }
 }
