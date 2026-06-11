@@ -1,3 +1,4 @@
+# ⚠ This project has been paused for an indefinite period.
 # Bashelle
 
 ## Installation
